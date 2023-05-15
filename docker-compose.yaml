@@ -35,11 +35,10 @@ services:
     #   https://hub.docker.com/r/dpage/pgadmin4/
     image: dpage/pgadmin4
     volumes:
-      - pg-admin/var/lib/pgadmin
+      - pg-admin:/var/lib/pgadmin
     # Expose the web UI on localhost port 8080
     ports:
-      - "8082:80"
-    network_mode: bridge
+      - "8082:80" 
 
     # Link this container to the postgres container with hostname 'postgres'
 
