@@ -1,14 +1,31 @@
-# volumes:
+volumes:
+  parkpal-data:
+    external: true
+  pg-admin:
+      external: true
 services:
   fastapi:
     build:
-      context: sample_service
+      context: parkpal_service
       dockerfile: Dockerfile.dev
+    environment:
+       DATABASE_URL: postgresql://admin:1234@db/parkpal
+       WAIT_HOSTS: db:5432
+       PORT: 8000
     ports:
-      - 8000:8000
+       - "8000:8000"
     volumes:
-      - ./sample_service:/app
-
+      - ./parkpal_service:/app
+  db:
+    image: postgres:15.3-bullseye
+    environment:
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_USER: admin
+      POSTGRES_DB: parkpal
+    ports: 
+      - "15432:5432"
+    volumes:
+      - parkpal-data:/var/lib/postgresql/data
   ghi:
     image: node:lts-bullseye
     command: /bin/bash run.sh
@@ -18,8 +35,23 @@ services:
     ports:
       - "3000:3000"
     environment:
-      HOST_OS: ${OS}
+      HOST_OS: windows
       NODE_ENV: development
       HOST: "0.0.0.0"
       PUBLIC_URL: http://localhost:3000
       REACT_APP_SAMPLE_SERVICE_API_HOST: ${REACT_APP_SAMPLE_SERVICE_API_HOST}
+
+  pgadmin:
+    # For more details on configuring the pgadmin4 Docker image, see:
+    #   https://hub.docker.com/r/dpage/pgadmin4/
+    image: dpage/pgadmin4
+    volumes:
+      - pg-admin:/var/lib/pgadmin
+    # Expose the web UI on localhost port 8080
+    ports:
+      - '8082:80'
+    # Link this container to the postgres container with hostname 'postgres'
+    environment:
+      PGADMIN_DEFAULT_EMAIL: 'admin@example.com'
+      PGADMIN_DEFAULT_PASSWORD: '1234'
+      PGADMIN_DISABLE_POSTFIX: 1
