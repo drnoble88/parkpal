@@ -9,9 +9,13 @@ steps = [
             activites TEXT NOT NULL
         );
         """,
+        ## drop the table
         """
         DROP TABLE appointments;
         """
-    ],
-
+    ]
 ]
+
+
+
+
