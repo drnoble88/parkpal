@@ -2,17 +2,17 @@
 import os
 from fastapi import Depends
 from jwtdown_fastapi.authentication import Authenticator
-from queries.accounts import AccountQueries, AccountOut, AccountOutWithPassword, Account
+from queries.accounts import AccountQueries, Account
 
 class ParkPalAuthenticator(Authenticator):
     async def get_account_data(
         self,
-        email: str,
+        username: str,
         accounts: AccountQueries,
     ):
         # Use your repo to get the account based on the
         # username (which could be an email)
-        return accounts.get(email)
+        return accounts.get(username)
 
     def get_account_getter(
         self,
@@ -29,7 +29,7 @@ class ParkPalAuthenticator(Authenticator):
     def get_account_data_for_cookie(self, account: Account):
         # Return the username and the data for the cookie.
         # You must return TWO values from this method.
-        return account.email, Account(**account.dict())
+        return account.username, Account(**account.dict())
 
 
 authenticator = ParkPalAuthenticator(os.environ["SIGNING_KEY"])
