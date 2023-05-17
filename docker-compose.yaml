@@ -9,6 +9,7 @@ services:
       context: parkpal_service
       dockerfile: Dockerfile.dev
     environment:
+       SIGNING_KEY: 2cf693e3f0527777851fc1ba95f51251660e4dfc5669cd198b41b2cf3e054e1a
        DATABASE_URL: postgresql://admin:1234@db/parkpal
        WAIT_HOSTS: db:5432
        PORT: 8000
@@ -18,7 +19,7 @@ services:
       - ./parkpal_service:/app
   db:
     image: postgres:15.3-bullseye
-    environment:
+    environment: 
       POSTGRES_PASSWORD: 1234
       POSTGRES_USER: admin
       POSTGRES_DB: parkpal
