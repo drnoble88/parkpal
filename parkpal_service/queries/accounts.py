@@ -1,9 +1,11 @@
 from pydantic import BaseModel
 from queries.pool import pool
+from jwtdown_fastapi.authentication import Token
 
 
 class DuplicateAccountError(ValueError):
     pass
+
 
 class AccountIn(BaseModel):
     username: str
@@ -19,6 +21,7 @@ class AccountOut(AccountIn):
 class AccountOutWithPassword(AccountOut):
     hashed_password:str
 
+
 class Account(BaseModel):
     id: str
     username: str
@@ -27,34 +30,51 @@ class Account(BaseModel):
     hashed_password: str
 
 
+class AccountForm(BaseModel):
+    username: str
+    password: str
+
+
+class AccountToken(Token):
+    account: Account
+
+
+class HttpError(BaseModel):
+    detail: str
+
+
 class AccountQueries:
-    # region properties
-    
-    def get(self, email: str) -> Account:
+
+    def get(self, username: str) -> Account:
         with pool.connection() as conn:
             with conn.cursor() as db:
                 result = db.execute (
                     """
                     SELECT id, username, fullname, email, hashed_password
                     FROM accounts
-                    WHERE email = %s;
+                    WHERE username = %s;
                     """,
                     [
-                        email
+                        username
                     ]
                 )
                 records = result.fetchone()
-                print(records)
-                return Account(
-                    id= records[0],
-                    username = records[1],
-                    fullname = records[2],
-                    email = records[3],
-                    hashed_password = records[4]
-                )
-        
+                if records == None:
+                    return None
+                else:
+                    return Account(
+                        id= records[0],
+                        username = records[1],
+                        fullname = records[2],
+                        email = records[3],
+                        hashed_password = records[4]
+                    )
+
 
     def create(self, info: AccountIn, hashed_password:str) -> Account:
+        username = info.username
+        if self.get(username) is not None:
+            raise DuplicateAccountError()
         with pool.connection() as conn:
             with conn.cursor() as db:
                 result = db.execute (
@@ -73,6 +93,7 @@ class AccountQueries:
                     ]
                 )
                 id = result.fetchone()[0]
+
                 return Account(
                     id= id,
                     username = info.username,
@@ -80,7 +101,3 @@ class AccountQueries:
                     email = info.email,
                     hashed_password = hashed_password
                 )
-                # old_data = info.dict()
-                # old_data["hashed_password"] = hashed_password
-                # print(old_data)
-                # return AccountOutWithPassword(id=id, **old_data)
