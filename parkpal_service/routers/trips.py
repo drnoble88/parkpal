@@ -13,7 +13,7 @@ def create_trip(
     repo: TripsRespository = Depends(),
     account_data: dict = Depends(authenticator.get_current_account_data),
     ):
-    return repo.create(trip)
+    return repo.create(trip, account_data["id"])
 
 
 @router.get("/api/trips", response_model = List[TripOut])
@@ -21,7 +21,7 @@ def get_all_trips(
     repo: TripsRespository = Depends(),
     account_data: dict = Depends(authenticator.get_current_account_data),
     ):
-    return repo.get_all()
+    return repo.get_all(account_data["id"])
 
 
 @router.get("/api/trip/{trip_id}", response_model = TripOut)
@@ -40,7 +40,7 @@ def update_one_trip(
     repo: TripsRespository = Depends(),
     account_data: dict = Depends(authenticator.get_current_account_data),
     ):
-    return repo.update_trip(trip_id, trip)
+    return repo.update_trip(trip_id, trip, account_data["id"])
 
 
 @router.delete("/api/trip/{trip_id}", response_model=bool)
