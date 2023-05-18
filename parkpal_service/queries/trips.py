@@ -17,7 +17,7 @@ class TripIn(BaseModel):
 
 class TripOut(TripIn):
     id: str
-
+    # accounts_id: str
 
 class TripsRespository:
     def create(self, trip: TripIn,) -> TripOut:
@@ -48,7 +48,7 @@ class TripsRespository:
                 )
 
 
-    def get_one(self, trips_id: int) -> TripOut:
+    def get_one(self, trip_id: int) -> TripOut:
         with pool.connection() as conn:
             with conn.cursor() as db:
                 result = db.execute (
@@ -58,7 +58,7 @@ class TripsRespository:
                     WHERE id = %s;
                     """,
                     [
-                        trips_id
+                        trip_id
                     ]
                 )
                 records = result.fetchone()
@@ -90,5 +90,46 @@ class TripsRespository:
                         activities=record[4]
                     )
                     for record in result
-
                 ]
+            
+            
+    def update_trip(self, trip_id: int, trip: TripIn) -> TripOut:
+        with pool.connection() as conn:
+            with conn.cursor() as db:
+                result = db.execute(
+                    """
+                    UPDATE trips
+                    SET national_park_name = %s
+                    , start_date = %s
+                    , end_date = %s
+                    , activities = %s
+                    WHERE id = %s
+                    """,
+                    [
+                        trip.national_park_name,
+                        trip.start_date,
+                        trip.end_date,
+                        trip.activities,
+                        trip_id
+                    ]
+                )
+                return TripOut(
+                    id =trip_id,
+                    national_park_name = trip.national_park_name,
+                    start_date = trip.start_date,
+                    end_date = trip.end_date,
+                    activities = trip.activities
+                )
+            
+
+    def delete_one_trip(self, trip_id: int) -> bool:
+        with pool.connection() as conn:
+            with conn.cursor() as db:
+                 db.execute(
+                    """
+                    DELETE FROM trips
+                    WHERE id = %s
+                    """,
+                    [trip_id]
+                )
+            return True
