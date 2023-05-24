@@ -29,6 +29,12 @@ class Account(BaseModel):
     email: str
     hashed_password: str
 
+class AccountHidden(BaseModel):
+    id: str
+    username: str
+    fullname: str
+    email: str
+
 
 class AccountForm(BaseModel):
     username: str
@@ -36,7 +42,7 @@ class AccountForm(BaseModel):
 
 
 class AccountToken(Token):
-    account: Account
+    account: AccountHidden
 
 
 class HttpError(BaseModel):
