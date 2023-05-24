@@ -19,11 +19,11 @@ services:
       - ./parkpal_service:/app
   db:
     image: postgres:15.3-bullseye
-    environment: 
+    environment:
       POSTGRES_PASSWORD: 1234
       POSTGRES_USER: admin
       POSTGRES_DB: parkpal
-    ports: 
+    ports:
       - "15432:5432"
     volumes:
       - parkpal-data:/var/lib/postgresql/data
@@ -40,7 +40,7 @@ services:
       NODE_ENV: development
       HOST: "0.0.0.0"
       PUBLIC_URL: http://localhost:3000
-      REACT_APP_SAMPLE_SERVICE_API_HOST: ${REACT_APP_SAMPLE_SERVICE_API_HOST}
+      REACT_APP_API_HOST: http://localhost:8000
 
   pgadmin:
     # For more details on configuring the pgadmin4 Docker image, see:
