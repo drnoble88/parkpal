@@ -11,25 +11,34 @@ const TripForm = () => {
   const [trip] = useTripMutation();
   const navigate = useNavigate();
 
-  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     // Perform signup logic here
-    console.log(trip({ nationalPark, startDate, endDate, activities }));
-    const response = await trip({ nationalPark, startDate, endDate, activities });
+
+    const data = {
+      "national_park_name": nationalPark,
+      "start_date": startDate,
+      "end_date": endDate,
+      "activities": activities
+    }
+
+    console.log("DATAAA",data)
+
+    const response = await trip(data);
     if (response.error) {
       // Handle validation or input error
       setErrorMessage("Please fill in all the fields");
     } else {
       // Handle successful signup
-      console.log("Signup successful!");
+      console.log("trip succesfully created");
       // Reset form inputs
       setNationalPark("");
       setStartDate("");
       setEndDate("");
       setActivities("");
       setErrorMessage("");
-      navigate('/login');
+      navigate('/');
     }
   };
 

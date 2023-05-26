@@ -6,6 +6,7 @@ import reportWebVitals from "./reportWebVitals";
 import { store } from "./store/store";
 import { Provider } from "react-redux";
 import "bootstrap/dist/css/bootstrap.css";
+import Slider from "react-slick";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

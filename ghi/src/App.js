@@ -8,6 +8,7 @@ import LoginForm from "./LoginForm.js";
 import HomePage from "./Home.js";
 import SignupForm from "./SignupForm.js";
 import TripForm from "./TripForm.js";
+import ParkDetails from "./ParkDetails.js";
 
 function App() {
   const [launchInfo, setLaunchInfo] = useState([]);
@@ -24,7 +25,8 @@ function App() {
             <Route path="/login" element={<LoginForm />} />
             <Route path="/" element={<HomePage />} />
             <Route path="/signup" element={<SignupForm />} />
-            <Route path="/createtrip" element={<TripForm />} />            
+            <Route path="/createtrip" element={<TripForm />} />
+            <Route path="/parkdetails" element={<ParkDetails />} />
           </Routes>
         </div>
       </BrowserRouter>

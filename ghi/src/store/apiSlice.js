@@ -11,44 +11,55 @@ export const parkpalApi = createApi({
         url: `/token`,
         credentials: "include",
       }),
-      transformResponse: (response) => response?.account || null,
-      provideTags: ['Account'],
+      transformResponse: (response) => response ? response : null,
+      provideTags: ["Account"],
+    }),
+    getOnePark: builder.query({
+      query: (parkCode) => ({
+        url: `/api/nationalparks/${parkCode}`,
+      }),
+    }),
+    getParks: builder.query({
+      query: () => ({
+        url: `/api/nationalparks`
+      }),
     }),
     login: builder.mutation({
       query: ({ username, password }) => {
         const body = new FormData();
-        body.append('username', username);
-        body.append('password', password);
+        body.append("username", username);
+        body.append("password", password);
         return {
           url: `/token`,
-          method: 'POST',
+          method: "POST",
           body,
           credentials: "include",
         };
       },
-      invalidatesTags: ['Account'],
+      invalidatesTags: ["Account"],
     }),
     logout: builder.mutation({
       query: () => ({
         url: `/token`,
-        method: 'DELETE',
-        credentials: 'include',
+        method: "DELETE",
+        credentials: "include",
       }),
-      invalidatesTags: ['Account'],
+      invalidatesTags: ["Account"],
     }),
     signup: builder.mutation({
       query: (formData) => ({
         url: `/api/accounts`,
-        method: 'POST',
+        method: "POST",
         body: formData,
       }),
-      invalidatesTags: ['Account'],
+      invalidatesTags: ["Account"],
     }),
     trip: builder.mutation({
       query: (data) => ({
         url: `/api/trips`,
-        method: 'POST',
+        method: "POST",
         body: data,
+        credentials: "include",
       }),
     }),
   }),
@@ -59,5 +70,7 @@ export const {
   useLoginMutation,
   useLogoutMutation,
   useSignupMutation,
-  useTripMutation
+  useTripMutation,
+  useGetOneParkQuery,
+  useGetParksQuery
 } = parkpalApi;

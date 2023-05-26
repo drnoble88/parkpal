@@ -2,7 +2,7 @@ nav{
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: #fff8d8;
+    background: #000000;
     padding: 20px 80px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.66);
 }
@@ -24,7 +24,7 @@ position: relative;
     text-decoration: none;
     font-size: 1.3rem;
     font-weight: 600;
-    color:#ff9d1e;
+    color:#fff;
     transition: 0.3s ease-in-out;
 }
 
@@ -52,12 +52,12 @@ position: relative;
 .button-5 {
   align-items: center;
   background-clip: padding-box;
-  background-color: #fa6400;
+  background-color: #fff;
   border: 1px solid transparent;
   border-radius: .25rem;
   box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
   box-sizing: border-box;
-  color: #fff;
+  color: #000000;
   cursor: pointer;
   display: inline-flex;
   font-family: system-ui,-apple-system,system-ui,"Helvetica Neue",Helvetica,Arial,sans-serif;
@@ -80,7 +80,7 @@ position: relative;
 
 .button-5:hover,
 .button-5:focus {
-  background-color: #fb8332;
+  background-color: #fff;
   box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
 }
 
@@ -92,4 +92,8 @@ position: relative;
   background-color: #c85000;
   box-shadow: rgba(0, 0, 0, .06) 0 2px 4px;
   transform: translateY(0);
+}
+#title {
+  color:#fff;
+
 }
