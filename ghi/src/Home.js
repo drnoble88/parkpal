@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import { useGetParksQuery } from "./store/apiSlice";
 import { useDispatch } from "react-redux";
-import { search } from "./store/searchSlice";
 import Carousel from "react-bootstrap/Carousel";
+import Search from "./Search";
 
 const HomePage = () => {
-  const { data: parks, isSuccess } = useGetParksQuery();
+  const { data, isSuccess } = useGetParksQuery();
   const dispatch = useDispatch();
+  const searchCriteria = useSelector((state) => state.parkSearch.value);
 
   if (!isSuccess) {
     // Handle loading state or error state
@@ -15,11 +17,11 @@ const HomePage = () => {
 
   const carouselStyle = {
     position: "relative",
-    overflow: "hidden",
     minHeight: "100vh",
   };
 
   const carouselImgStyle = {
+    zIndex: 1,
     width: "100vw",
     height: "100vh",
     objectFit: "cover",
@@ -31,45 +33,64 @@ const HomePage = () => {
     textShadow: "2px 2px 0 black", // Adjust the shadow values as needed
   };
 
+  const searchContainerStyle = {
+    position: "absolute",
+    top: 0,
+    left: "50%",
+    transform: "translateX(-50%)",
+    zIndex: 2,
+    width: "100%",
+    padding: "20px",
+    boxSizing: "border-box",
+    textAlign: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    color: "#fff",
+  };
+
+const filteredParks = () => {
+  if (!searchCriteria) {
+    return data; // Return all parks if no search criteria is provided
+  } else {
+    const filtered = data?.filter((park) =>
+      park.fullName.includes(searchCriteria)
+    );
+    return filtered.length > 0 ? filtered : data; // Return filtered parks if any matches found, otherwise return all parks
+  }
+};
+
+
+
   return (
-    <div className="custom-container" style={carouselStyle}>
-      <Carousel fade>
-        {parks.map((park) => (
-          <Carousel.Item key={park.id}>
-            <img
-              className="d-block w-100"
-              src={park.images[0]}
-              alt="Park Slide"
-              style={carouselImgStyle}
-            />
-            <Carousel.Caption>
-              <div className="d-flex justify-content-center">
-                <input
-                  className="form-control border-secondary rounded-pill form-control-lg pr-5"
-                  type="search"
-                  placeholder="National Park"
-                  id="example-search-input2"
-                  style={{ width: "50%" }}
-                  onChange={(e) => dispatch(search(e.target.value))}
-                />
-                <button
-                  className="btn btn-outline-light text-dark border-0 rounded-pill ml-2"
-                  type="submit"
-                >
-                  Search
-                </button>
-              </div>
-              <h3 style={textOutlineStyle}>{park.fullName}</h3>
-              <p style={textOutlineStyle}>{park.description}</p>
-              <a href="#" className="btn btn-success">
-                Go to {park.fullName}
-              </a>
-            </Carousel.Caption>
-          </Carousel.Item>
-        ))}
-      </Carousel>
+    <div className="custom-container">
+      <div style={carouselStyle}>
+        <Carousel fade>
+          {filteredParks().map((park) => (
+            <Carousel.Item key={park.id}>
+              <img
+                className="d-block w-100"
+                src={park.images[0]}
+                alt="Park Slide"
+                style={carouselImgStyle}
+              />
+              <Carousel.Caption>
+                <h3 style={textOutlineStyle}>{park.fullName}</h3>
+                <p style={textOutlineStyle}>{park.description}</p>
+                <a href="#" className="btn btn-success">
+                  Go to {park.fullName}
+                </a>
+              </Carousel.Caption>
+            </Carousel.Item>
+          ))}
+        </Carousel>
+              <div style={searchContainerStyle}>
+        <Search />
+      </div>
+      </div>
     </div>
   );
 };
 
 export default HomePage;
+
+
+

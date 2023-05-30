@@ -1,10 +1,13 @@
-nav{
+.navbar {
     display: flex;
     align-items: center;
     justify-content: space-between;
     background: #000000;
     padding: 20px 80px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.66);
+    position: 0;
+    top: 0;
+    z-index: 100;
 }
 
 #navbar{
@@ -30,7 +33,7 @@ position: relative;
 
 #navbar li a:hover,
 #navbar li a:hover {
-    color: #17cf97;
+    color: #0047AB;
 
 }
 
@@ -39,7 +42,7 @@ position: relative;
     content: "";
     width: 30%;
     height: 2px;
-    background: #17cf97;
+    background: #0047AB;
     position: absolute;
     bottom: -4px;
     left: 20px;
@@ -60,14 +63,14 @@ position: relative;
   color: #000000;
   cursor: pointer;
   display: inline-flex;
-  font-family: system-ui,-apple-system,system-ui,"Helvetica Neue",Helvetica,Arial,sans-serif;
-  font-size: 16px;
+  font-family: system-ui, -apple-system, system-ui, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px; /* Adjust the font size to make the button smaller */
   font-weight: 600;
   justify-content: center;
   line-height: 1.25;
   margin: 0;
   min-height: 3rem;
-  padding: calc(.875rem - 1px) calc(1.5rem - 1px);
+  padding: calc(.5rem - 1px) calc(1rem - 1px); /* Adjust the padding to make the button smaller */
   position: relative;
   text-decoration: none;
   transition: all 250ms;
@@ -75,7 +78,6 @@ position: relative;
   -webkit-user-select: none;
   touch-action: manipulation;
   vertical-align: baseline;
-  width: auto;
 }
 
 .button-5:hover,
@@ -93,7 +95,28 @@ position: relative;
   box-shadow: rgba(0, 0, 0, .06) 0 2px 4px;
   transform: translateY(0);
 }
-#title {
-  color:#fff;
 
+
+
+.logo {
+  display: flex;
+  align-items: center;
+  color: #fff;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+}
+
+.title { 
+  color: #fff;
+
+}
+
+.logo-image {
+  width: 100px;
+  height: auto;
+  margin-right: 10px;
 }

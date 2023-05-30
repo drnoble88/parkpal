@@ -10,6 +10,7 @@ import SignupForm from "./SignupForm.js";
 import TripForm from "./TripForm.js";
 import ParkDetails from "./ParkDetails.js";
 
+
 function App() {
   const [launchInfo, setLaunchInfo] = useState([]);
   const [error, setError] = useState(null);
@@ -18,6 +19,7 @@ function App() {
     <>
       <BrowserRouter>
         <Navbar />
+        
         <ErrorNotification error={error} />
         {/* <Construct info={launchInfo} /> */}
         <div>
