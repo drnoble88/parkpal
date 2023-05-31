@@ -9,6 +9,8 @@ import HomePage from "./Home.js";
 import SignupForm from "./SignupForm.js";
 import TripForm from "./TripForm.js";
 import ParkDetails from "./ParkDetails.js";
+import TripList from "./TripList.js";
+
 
 
 function App() {
@@ -28,7 +30,8 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/signup" element={<SignupForm />} />
             <Route path="/createtrip" element={<TripForm />} />
-            <Route path="/parkdetails" element={<ParkDetails />} />
+            <Route path="/parkdetails/:parkCode" element={<ParkDetails />} />
+            <Route path="/mytrips" element={<TripList />} />
           </Routes>
         </div>
       </BrowserRouter>

@@ -1,13 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import { useGetParksQuery } from "./store/apiSlice";
-import { useDispatch } from "react-redux";
 import Carousel from "react-bootstrap/Carousel";
 import Search from "./Search";
+import { Link } from "react-router-dom";
 
 const HomePage = () => {
   const { data, isSuccess } = useGetParksQuery();
-  const dispatch = useDispatch();
   const searchCriteria = useSelector((state) => state.parkSearch.value);
 
   if (!isSuccess) {
@@ -74,10 +73,11 @@ const filteredParks = () => {
               />
               <Carousel.Caption>
                 <h3 style={textOutlineStyle}>{park.fullName}</h3>
+                {/* <Link to= ${`/api/parks/{park.park_code}`} */}
                 <p style={textOutlineStyle}>{park.description}</p>
-                <a href="#" className="btn btn-success">
+                <Link to = {`/parkdetails/${park.parkCode}`} className="btn btn-success">
                   Go to {park.fullName}
-                </a>
+                </Link>
               </Carousel.Caption>
             </Carousel.Item>
           ))}
@@ -91,6 +91,3 @@ const filteredParks = () => {
 };
 
 export default HomePage;
-
-
-

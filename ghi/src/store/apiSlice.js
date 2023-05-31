@@ -19,6 +19,12 @@ export const parkpalApi = createApi({
         url: `/api/nationalparks/${parkCode}`,
       }),
     }),
+    getAllTrips: builder.query({
+      query: () => ({
+        url: `/api/trips`,
+        credentials: "include",
+      }),
+    }),
     getParks: builder.query({
       query: () => ({
         url: `/api/nationalparks`
@@ -72,5 +78,6 @@ export const {
   useSignupMutation,
   useTripMutation,
   useGetOneParkQuery,
-  useGetParksQuery
+  useGetParksQuery,
+  useGetAllTripsQuery
 } = parkpalApi;

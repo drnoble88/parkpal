@@ -14,8 +14,6 @@ const TripForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Perform signup logic here
-
     const data = {
       "national_park_name": nationalPark,
       "start_date": startDate,

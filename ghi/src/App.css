@@ -35,3 +35,10 @@
 .loginbttm {
     padding: 0px;
 }
+.activity-container {
+  display: flex;
+}
+
+.activity {
+  margin-right: 10px;
+}

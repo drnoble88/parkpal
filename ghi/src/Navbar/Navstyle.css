@@ -1,100 +1,101 @@
 .navbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: #000000;
-    padding: 20px 80px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.66);
-    position: 0;
-    top: 0;
-    z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #000000;
+  padding: 20px 80px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.66);
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
-#navbar{
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.nav-items ul {
+  display: flex;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
 
+.nav-items li {
+  margin-right: 10px;
+}
+
+.auth-links {
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+  
+}
+
+.auth-links a,
+.auth-links button {
+  margin-left: 1px;
+  font-size: 14px;
+  padding: 2px 5px;
+}
+
+.auth-button {
+  margin-bottom: 50px;
+  margin-left: 30px;
+  display: flex;
+  align-items: center;
+}
+
+#navbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
 }
 
 #navbar li {
-    list-style: none;
-    padding: 0 20px;
-position: relative;
+  list-style: none;
+  padding: 0 20px;
+  position: relative;
 }
 
-#navbar li a{
-    text-decoration: none;
-    font-size: 1.3rem;
-    font-weight: 600;
-    color:#fff;
-    transition: 0.3s ease-in-out;
+#navbar li a {
+  text-decoration: none;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #fff;
+  transition: 0.3s ease-in-out;
 }
 
 #navbar li a:hover,
 #navbar li a:hover {
-    color: #0047AB;
-
+  color: #0047ab;
 }
 
 #navbar li a:hover::after,
 #navbar li a.active::after {
-    content: "";
-    width: 30%;
-    height: 2px;
-    background: #0047AB;
-    position: absolute;
-    bottom: -4px;
-    left: 20px;
-
-
+  content: "";
+  width: 30%;
+  height: 2px;
+  background: #0047ab;
+  position: absolute;
+  bottom: -4px;
+  left: 20px;
 }
 
-
-
-.button-5 {
+.signup {
+  display: flex;
   align-items: center;
-  background-clip: padding-box;
-  background-color: #fff;
-  border: 1px solid transparent;
-  border-radius: .25rem;
-  box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
-  box-sizing: border-box;
-  color: #000000;
-  cursor: pointer;
-  display: inline-flex;
-  font-family: system-ui, -apple-system, system-ui, "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 14px; /* Adjust the font size to make the button smaller */
-  font-weight: 600;
-  justify-content: center;
-  line-height: 1.25;
-  margin: 0;
-  min-height: 3rem;
-  padding: calc(.5rem - 1px) calc(1rem - 1px); /* Adjust the padding to make the button smaller */
-  position: relative;
-  text-decoration: none;
-  transition: all 250ms;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-  vertical-align: baseline;
 }
 
-.button-5:hover,
-.button-5:focus {
-  background-color: #fff;
-  box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+.logo-container {
+  display: flex;
+  align-items: center;
+
 }
 
-.button-5:hover {
-  transform: translateY(-1px);
+.title {
+  color: #fff;
+  margin-left: 10px; 
 }
 
-.button-5:active {
-  background-color: #c85000;
-  box-shadow: rgba(0, 0, 0, .06) 0 2px 4px;
-  transform: translateY(0);
-}
+
 
 
 
@@ -120,3 +121,53 @@ position: relative;
   height: auto;
   margin-right: 10px;
 }
+
+.nav-button {
+  align-items: center;
+  background-color: #000;
+  border: 2px solid #000;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-flex;
+  fill: #fff;
+  font-family: Inter,sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  height: 20px;
+  justify-content: center;
+  letter-spacing: -.8px;
+  line-height: 10px;
+  min-width: 50px;
+  outline: 0;
+  padding: 0 17px;
+  text-align: center;
+  text-decoration: none;
+  transition: all .3s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.nav-button:focus {
+  color: #171e29;
+}
+
+.nav-button:hover {
+  border-color: #0047ab;
+  color: #0047ab;
+  fill: #0047ab;
+}
+
+.nav-button:active {
+  border-color: #0047ab;
+  color: #0047ab;
+  fill: #0047ab;
+}
+
+@media (min-width: 768px) {
+  .button-59 {
+    min-width: 170px;
+  }
+}
+

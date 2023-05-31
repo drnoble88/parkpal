@@ -1,111 +1,108 @@
-import React, { useState } from "react";
-import { useGetAccountQuery } from "./store/apiSlice";
+import React, { useEffect } from "react";
+import { useGetOneParkQuery } from "./store/apiSlice";
+import { useParams } from "react-router-dom";
+import Carousel from 'react-bootstrap/Carousel';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 const ParkDetails = () => {
-  const { data } = useGetAccountQuery();
-  console.log(data);
+  const { parkCode } = useParams();
+  const { data, isLoading, isError, refetch } = useGetOneParkQuery(parkCode);
+
+  useEffect(() => {
+    refetch();
+  }, [parkCode, refetch]);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (isError) {
+    return <div>Error occurred while fetching park details</div>;
+  }
+  let act = data.activities.join(" - ");
+
+  const imageStyle = {
+    maxWidth: "100%",
+    maxHeight: "600px",
+    objectFit: "contain",
+  };
+
+  const arrowIconStyle = {
+    filter: "invert(100%) sepia(0%) saturate(0%) hue-rotate(176deg) brightness(109%) contrast(101%)",
+  };
+
+  const containerStyle = {
+    backgroundImage: `url('https://images.pexels.com/photos/545964/pexels-photo-545964.jpeg?auto=compress&cs=tinysrgb&w=1600')`,
+    backgroundSize: 'cover',
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'center',
+    minHeight: '100vh',
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  };
+
+    const whiteBackgroundStyle = {
+    background: "white",
+    margin: "20px",
+    maxWidth: "1000px", // Adjust the maximum width as per your requirement
+    maxHeight:"200vh",
+    margin: "auto", // Center the div horizontally
+    border:"solid"
+  };
+
 
   return (
-    <div
-      className="container d-flex flex-column align-items-center justify-content-center"
-      style={{
-        backgroundImage: `url('https://images.pexels.com/photos/545964/pexels-photo-545964.jpeg?auto=compress&cs=tinysrgb&w=1600')`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        minHeight: "100vh",
-        minWidth: "100vw",
-      }}
-    >
-      <h1 className="text-center mb-5">Park Pal</h1>
-      <form className="form-inline mb-3">
-        <div className="row no-gutters align-items-center">
-          <div className="col-md-12">
-            <div className="d-flex justify-content-between">
-              <input
-                className="form-control border-secondary rounded-pill form-control-lg pr-5"
-                type="search"
-                placeholder="National Park"
-                id="example-search-input2"
-                style={{ width: "100%" }}
-              />
-              <button
-                className="btn btn-outline-light text-dark border-0 rounded-pill ml-2"
-                type="submit"
-              >
-                Search
-              </button>
-            </div>
-          </div>
-        </div>
-      </form>
-
+    <div style={containerStyle}>
+    <div style={whiteBackgroundStyle} className="container justify-content-center">
       <div className="row">
-        <div className="col-md-4 mb-4">
-          <div className="card" style={{ width: "18rem" }}>
-            <img
-              className="card-img-top"
-              src="https://www.shutterstock.com/image-photo/scenic-panoramic-view-famous-yosemite-260nw-1689107770.jpg"
-              alt="Card image cap"
-            />
-            <div className="card-body">
-              <h5 className="card-title">NATIONAL PARK NAME</h5>
-              <p className="card-text">
-                Some quick example text to build on the card title and make up
-                the bulk of the card's content.
-              </p>
-              <a href="#" className="btn btn-success">
-                Go somewhere
-              </a>
-            </div>
-          </div>
+        <div className="col-md-12 text-center">
+          <h1>{data.fullName}</h1>
+          <p>{data.description}</p>
+          <h3>Activities</h3>
+          <p className="text-center">{act}</p> 
         </div>
-        <div className="col-md-4 mb-4">
-          <div className="card" style={{ width: "18rem" }}>
-            <img
-              className="card-img-top"
-              src="https://www.shutterstock.com/image-photo/scenic-panoramic-view-famous-yosemite-260nw-1689107770.jpg"
-              alt="Card image cap"
-            />
-            <div className="card-body">
-              <h5 className="card-title">NATIONAL PARK NAME</h5>
-              <p className="card-text">
-                Some quick example text to build on the card title and make up
-                the bulk of the card's content.
-              </p>
-              <a href="#" className="btn btn-success">
-                Go somewhere
-              </a>
-            </div>
-          </div>
-        </div>
-        <div className="col-md-4 mb-4">
-          <div className="card" style={{ width: "18rem" }}>
-            <img
-              className="card-img-top"
-              src="https://www.shutterstock.com/image-photo/scenic-panoramic-view-famous-yosemite-260nw-1689107770.jpg"
-              alt="Card image cap"
-            />
-            <div className="card-body">
-              <h5 className="card-title">NATIONAL PARK NAME</h5>
-              <p className="card-text">
-                Some quick example text to build on the card title and make up
-                the bulk of the card's content.
-              </p>
-              <a href="#" className="btn btn-success">
-                Go somewhere
-              </a>
-            </div>
-          </div>
-        </div>
-        {/* Repeat the card component for additional cards */}
-        <div className="col-md-4 mb-4">{/* Card component */}</div>
-        <div className="col-md-4 mb-4">{/* Card component */}</div>
-        <div className="col-md-4 mb-4">{/* Card component */}</div>
-        <div className="col-md-4 mb-4">{/* Card component */}</div>
-        <div className="col-md-4 mb-4">{/* Card component */}</div>
-        <div className="col-md-4 mb-4">{/* Card component */}</div>
       </div>
+      <div className="row">
+        <div className="col-md-12">
+          <Carousel
+            nextIcon={<span className="carousel-control-next-icon" style={arrowIconStyle} />}
+            prevIcon={<span className="carousel-control-prev-icon" style={arrowIconStyle} />}
+          >
+            {data.images.map((image, index) => (
+              <Carousel.Item key={index}>
+                <img
+                  src={image}
+                  className="d-block w-100"
+                  alt="Park Image"
+                  style={imageStyle}
+                />
+              </Carousel.Item>
+            ))}
+          </Carousel>
+        </div>
+        <div className="col-md-12 text-center">
+          <h3>Contact Information</h3>
+          <p>
+            Phone: {data.phoneNumber} | Email: {data.emailAddresses} | Address: {data.addresses.line1}, {data.addresses.city}, {data.addresses.stateCode} {data.addresses.postalCode}
+          </p>
+        </div>
+      </div>
+    </div>
     </div>
   );
 };
+
 export default ParkDetails;
+
+
+
+
+
+
+
+
+
+
+
