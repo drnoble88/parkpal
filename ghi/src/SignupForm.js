@@ -8,44 +8,53 @@ const SignupForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const[signup] = useSignupMutation();
+  const [signup] = useSignupMutation();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Perform signup logic here
-    const response = await signup({username, fullname, email, password}) 
-      if (response.error){
-        // Handle validation or input error
+    const response = await signup({ username, fullname, email, password });
+    if (response.error) {
       setErrorMessage("Please fill in all the fields");
     } else {
-      // Handle successful signup
       console.log("Signup successful!");
-      // Reset form inputs
       setUsername("");
       setFullname("");
       setEmail("");
       setPassword("");
       setErrorMessage("");
-      navigate('/login');
+      navigate("/login");
     }
   };
+
   const containerStyle = {
     backgroundImage: `url('https://4kwallpapers.com/images/wallpapers/moraine-lake-banff-national-park-mountains-daytime-scenery-3840x2160-2923.jpg')`,
-    backgroundSize: 'cover',
-    backgroundRepeat: 'no-repeat',
-    backgroundPosition: 'center',
-    minHeight: '100vh',
+    backgroundSize: "cover",
+    backgroundRepeat: "no-repeat",
+    backgroundPosition: "center",
+    minHeight: "100vh",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
   };
+
+  const glassmorphismStyle = {
+    backdropFilter: "blur(10px)",
+    background: "rgba(255, 255, 255, 0.5)",
+    boxShadow: "0 8px 32px 0 rgba(31, 38, 135, 0.37)",
+    border: "1px solid rgba(255, 255, 255, 0.18)",
+    borderRadius: "10px",
+  };
+
   return (
     <div style={containerStyle}>
       <div className="container">
         <div className="row">
           <div className="col-lg-3 col-md-2"></div>
-          <div className="col-lg-6 col-md-8 login-box">
+          <div
+            className="col-lg-6 col-md-8 login-box"
+            style={glassmorphismStyle}
+          >
             <div className="col-lg-12 login-key">
               <i className="fa fa-key" aria-hidden="true"></i>
             </div>
@@ -90,7 +99,9 @@ const SignupForm = () => {
                 </div>
                 <div className="col-lg-12 loginbttm">
                   <div className="col-lg-6 login-btm login-text">
-                    {errorMessage && <div className="error-message">{errorMessage}</div>}
+                    {errorMessage && (
+                      <div className="error-message">{errorMessage}</div>
+                    )}
                   </div>
                   <div className="col-lg-6 login-btm login-button">
                     <button type="submit" className="btn btn-outline-primary">
