@@ -20,18 +20,18 @@ const LoginForm = () => {
       navigate("/");
     }
   };
-  const containerStyle = {
-    backgroundImage: `url('https://4kwallpapers.com/images/wallpapers/moraine-lake-banff-national-park-mountains-daytime-scenery-3840x2160-2923.jpg')`,
-    backgroundSize: 'cover',
-    backgroundRepeat: 'no-repeat',
-    backgroundPosition: 'center',
-    minHeight: '100vh',
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  };
+
   return (
-    <div style={containerStyle}>
+    <div
+      className="container d-flex flex-column align-items-center justify-content-center"
+      style={{
+        backgroundImage: `https://images.pexels.com/photos/4134225/pexels-photo-4134225.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        minHeight: "100vh",
+        minWidth: "100vw",
+      }}
+    >
       <div className="container">
         <div className="row">
           <div className="col-lg-3 col-md-2"></div>
