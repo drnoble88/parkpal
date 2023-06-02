@@ -100,6 +100,7 @@ class TripsRespository:
                 ]
             
     def update_trip(self, trip_id: int, trip: TripIn, account_id: int) -> TripOut:
+        print("trip IN", trip)
         with pool.connection() as conn:
             with conn.cursor() as db:
                 result = db.execute(

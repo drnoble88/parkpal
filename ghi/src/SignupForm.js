@@ -30,68 +30,79 @@ const SignupForm = () => {
       navigate('/login');
     }
   };
-
+  const containerStyle = {
+    backgroundImage: `url('https://4kwallpapers.com/images/wallpapers/moraine-lake-banff-national-park-mountains-daytime-scenery-3840x2160-2923.jpg')`,
+    backgroundSize: 'cover',
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'center',
+    minHeight: '100vh',
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  };
   return (
-    <div className="container">
-      <div className="row">
-        <div className="col-lg-3 col-md-2"></div>
-        <div className="col-lg-6 col-md-8 login-box">
-          <div className="col-lg-12 login-key">
-            <i className="fa fa-key" aria-hidden="true"></i>
-          </div>
-          <div className="col-lg-12 login-title">Signup Panel</div>
-          <div className="col-lg-12 login-form">
-            <form onSubmit={handleSubmit}>
-              <div className="form-group">
-                <label className="form-control-label">USERNAME</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                />
-              </div>
-              <div className="form-group">
-                <label className="form-control-label">FULLNAME</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  value={fullname}
-                  onChange={(e) => setFullname(e.target.value)}
-                />
-              </div>
-              <div className="form-group">
-                <label className="form-control-label">EMAIL</label>
-                <input
-                  type="email"
-                  className="form-control"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </div>
-              <div className="form-group">
-                <label className="form-control-label">PASSWORD</label>
-                <input
-                  type="password"
-                  className="form-control"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-              </div>
-              <div className="col-lg-12 loginbttm">
-                <div className="col-lg-6 login-btm login-text">
-                  {errorMessage && <div className="error-message">{errorMessage}</div>}
+    <div style={containerStyle}>
+      <div className="container">
+        <div className="row">
+          <div className="col-lg-3 col-md-2"></div>
+          <div className="col-lg-6 col-md-8 login-box">
+            <div className="col-lg-12 login-key">
+              <i className="fa fa-key" aria-hidden="true"></i>
+            </div>
+            <div className="col-lg-12 login-title">Signup Panel</div>
+            <div className="col-lg-12 login-form">
+              <form onSubmit={handleSubmit}>
+                <div className="form-group">
+                  <label className="form-control-label">USERNAME</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                  />
                 </div>
-                <div className="col-lg-6 login-btm login-button">
-                  <button type="submit" className="btn btn-outline-primary">
-                    SIGN UP
-                  </button>
+                <div className="form-group">
+                  <label className="form-control-label">FULLNAME</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    value={fullname}
+                    onChange={(e) => setFullname(e.target.value)}
+                  />
                 </div>
-              </div>
-            </form>
+                <div className="form-group">
+                  <label className="form-control-label">EMAIL</label>
+                  <input
+                    type="email"
+                    className="form-control"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                </div>
+                <div className="form-group">
+                  <label className="form-control-label">PASSWORD</label>
+                  <input
+                    type="password"
+                    className="form-control"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                </div>
+                <div className="col-lg-12 loginbttm">
+                  <div className="col-lg-6 login-btm login-text">
+                    {errorMessage && <div className="error-message">{errorMessage}</div>}
+                  </div>
+                  <div className="col-lg-6 login-btm login-button">
+                    <button type="submit" className="btn btn-outline-primary">
+                      SIGN UP
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
           </div>
+          <div className="col-lg-3 col-md-2"></div>
         </div>
-        <div className="col-lg-3 col-md-2"></div>
       </div>
     </div>
   );

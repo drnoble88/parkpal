@@ -11,7 +11,7 @@ export const parkpalApi = createApi({
         url: `/token`,
         credentials: "include",
       }),
-      transformResponse: (response) => response ? response : null,
+      transformResponse: (response) => (response ? response : null),
       provideTags: ["Account"],
     }),
     getOnePark: builder.query({
@@ -24,10 +24,11 @@ export const parkpalApi = createApi({
         url: `/api/trips`,
         credentials: "include",
       }),
+      provideTags: ["Trips"],
     }),
     getParks: builder.query({
       query: () => ({
-        url: `/api/nationalparks`
+        url: `/api/nationalparks`,
       }),
     }),
     login: builder.mutation({
@@ -68,6 +69,23 @@ export const parkpalApi = createApi({
         credentials: "include",
       }),
     }),
+    updateTrip: builder.mutation({
+      query: (data) => ({
+        url: `/api/trip/${data.id}`,
+        method: "PUT",
+        body: data,
+        credentials: "include",
+      }),
+      invalidatesTags: ["Trips"],
+    }),
+    deleteTrip: builder.mutation({
+      query: (tripId) => ({
+        url: `/api/trip/${tripId}`,
+        method: "DELETE",
+        credentials: "include",
+      }),
+      invalidatesTags: ["Trips"],
+    }),
   }),
 });
 
@@ -79,5 +97,7 @@ export const {
   useTripMutation,
   useGetOneParkQuery,
   useGetParksQuery,
-  useGetAllTripsQuery
+  useGetAllTripsQuery,
+  useUpdateTripMutation,
+  useDeleteTripMutation,
 } = parkpalApi;

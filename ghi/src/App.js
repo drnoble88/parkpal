@@ -10,7 +10,7 @@ import SignupForm from "./SignupForm.js";
 import TripForm from "./TripForm.js";
 import ParkDetails from "./ParkDetails.js";
 import TripList from "./TripList.js";
-
+import UpdateTrip from "./updateTrip.js";
 
 
 function App() {
@@ -32,6 +32,7 @@ function App() {
             <Route path="/createtrip" element={<TripForm />} />
             <Route path="/parkdetails/:parkCode" element={<ParkDetails />} />
             <Route path="/mytrips" element={<TripList />} />
+            <Route path="/edittrip/:tripId" element={<UpdateTrip />} />
           </Routes>
         </div>
       </BrowserRouter>

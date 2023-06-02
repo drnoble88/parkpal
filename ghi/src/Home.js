@@ -45,13 +45,13 @@ const HomePage = () => {
     backgroundColor: "rgba(0, 0, 0, 0.5)",
     color: "#fff",
   };
-
+  
 const filteredParks = () => {
   if (!searchCriteria) {
     return data; // Return all parks if no search criteria is provided
   } else {
     const filtered = data?.filter((park) =>
-      park.fullName.includes(searchCriteria)
+      park.fullName.toLowerCase().includes(searchCriteria.toLowerCase())
     );
     return filtered.length > 0 ? filtered : data; // Return filtered parks if any matches found, otherwise return all parks
   }

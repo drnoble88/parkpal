@@ -2,6 +2,7 @@
   text-align: center;
 }
 
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -14,11 +15,10 @@
 }
 
 
-
-
 .login-btm {
     float: left;
 }
+
 
 .login-button {
     padding-right: 0px;
@@ -26,18 +26,23 @@
     margin-bottom: 25px;
 }
 
+
 .login-text {
     text-align: left;
     padding-left: 0px;
     color: #A2A4A4;
 }
 
+
 .loginbttm {
     padding: 0px;
 }
+
+
 .activity-container {
   display: flex;
 }
+
 
 .activity {
   margin-right: 10px;

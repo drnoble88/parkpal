@@ -1,0 +1,110 @@
+/* code summary */
+/* we use before and after pseudos to achieve a false moving bg and shadow respectively */
+
+@property --degree {
+ syntax: "<angle>";
+ inherits: false;
+ initial-value: 10deg;
+}
+/* the above rule-set creates a new rule called --degree which accepts values in deg */
+/* makes it easier to animate in css compared to the actual degree */
+/* in scss, this can be achieved with calc and stuff */
+
+* {
+ box-sizing: border-box;
+ margin: 0;
+ padding: 0;
+}
+
+
+.card {
+ width: 30vh;
+ height: 40vh;
+ padding: 2vw;
+ position: relative;
+ background-color: hsl(208, 100%, 30%);
+ font-size: 15px;
+ text-align: center;
+ border-radius: 20px;
+}
+.card::before {
+ content: "";
+ position: absolute;
+ width: 102%;
+ height: 102%;
+ top: -1%;
+ left: -1%;
+ background: linear-gradient(
+  var(--degree),
+  hsl(60, 100%, 60%) 20%,
+  hsl(120, 100%, 60%) 40%,
+  hsl(180, 100%, 60%) 60%,
+  hsl(240, 100%, 60%) 80%,
+  hsl(300, 100%, 60%) 100%
+ );
+ border-radius: inherit;
+ z-index: -1;
+ animation: spin 3s infinite ease-in-out;
+ will-change: contents;
+}
+.card::after {
+ content: "";
+ position: absolute;
+ width: 105%;
+ height: 105%;
+ top: -1%;
+ left: -1%;
+ background: linear-gradient(
+  var(--degree),
+  hsl(60, 100%, 60%) 20%,
+  hsl(120, 100%, 60%) 40%,
+  hsl(180, 100%, 60%) 60%,
+  hsl(240, 100%, 60%) 80%,
+  hsl(300, 100%, 60%) 100%
+ );
+ border-radius: inherit;
+ filter: blur(20px);
+ z-index: -2;
+ animation: spin 3s infinite ease-in-out;
+ will-change: contents;
+}
+
+/*
+******Extrass****
+
+.card:hover .fakeBtn{
+    opacity: 1;
+}
+.card:hover .text{
+    opacity: 0;
+}
+
+.text{
+    color: hsl(41, 100%, 75%);
+    opacity: 1;
+    transition: all 0.5s ease-in ;
+    transform-origin: right;
+    will-change: contents;
+}
+.fakeBtn{
+    place-self: center;
+    padding: 5px 25px;
+    background-color: hsl(273, 100%, 87%);
+    color: hsl(210, 30%, 10%);
+    font-size: 16px;
+    text-decoration: none;
+    border-radius: 10px;
+    opacity: 0;
+    transition: all 0.5s ease ;
+    transform-origin: left;
+    will-change: contents;
+} */
+
+@keyframes spin {
+ 0% {
+  --degree: 1deg;
+ }
+ 100% {
+  --degree: 360deg;
+ }
+}
