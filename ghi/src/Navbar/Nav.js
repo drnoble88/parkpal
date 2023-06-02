@@ -49,7 +49,7 @@ function Navbar() {
         </div>
         <div className="auth-links">
           <div className="auth-button">
-            {!account && <button className="nav-button" onClick={() => navigate("/Signupform")}>
+            {!account && <button className="nav-button" onClick={() => navigate("/signup")}>
               Sign Up
             </button>}
             {!account && <button className="nav-button" onClick={() => navigate("/login")}>
