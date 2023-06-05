@@ -59,7 +59,7 @@ const TripForm = () => {
       setEndDate("");
       setActivities("");
       setErrorMessage("");
-      navigate('/');
+      navigate('/mytrips');
     }
   };
 
