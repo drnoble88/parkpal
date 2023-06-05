@@ -12,7 +12,7 @@ export const parkpalApi = createApi({
         credentials: "include",
       }),
       transformResponse: (response) => (response ? response : null),
-      provideTags: ["Account"],
+      providesTags: ["Account"],
     }),
     getOnePark: builder.query({
       query: (parkCode) => ({
@@ -24,7 +24,7 @@ export const parkpalApi = createApi({
         url: `/api/trips`,
         credentials: "include",
       }),
-      provideTags: ["Trips"],
+      providesTags: ["Trips"],
     }),
     getParks: builder.query({
       query: () => ({
@@ -43,7 +43,7 @@ export const parkpalApi = createApi({
           credentials: "include",
         };
       },
-      invalidatesTags: ["Account"],
+      provideTags: ["Account"],
     }),
     logout: builder.mutation({
       query: () => ({
@@ -68,6 +68,7 @@ export const parkpalApi = createApi({
         body: data,
         credentials: "include",
       }),
+      invalidatesTags: ["Trips"],
     }),
     updateTrip: builder.mutation({
       query: (data) => ({
