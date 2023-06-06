@@ -1,13 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { useGetParksQuery } from "./store/apiSlice";
 import Carousel from "react-bootstrap/Carousel";
 import Search from "./Search";
 import { Link } from "react-router-dom";
+import states from "./States";
 
 const HomePage = () => {
   const { data, isSuccess } = useGetParksQuery();
   const searchCriteria = useSelector((state) => state.parkSearch.value);
+  const [stateCode, setStateCode] = useState();
+
+  const handleStateCode = (event) => {
+    setStateCode(event.target.value);
+  };
 
   if (!isSuccess) {
     // Handle loading state or error state
@@ -17,6 +23,7 @@ const HomePage = () => {
   const carouselStyle = {
     position: "relative",
     minHeight: "100vh",
+    width: "100%"
   };
 
   const carouselImgStyle = {
@@ -24,67 +31,90 @@ const HomePage = () => {
     width: "100vw",
     height: "100vh",
     objectFit: "cover",
-    maxWidth: "100%", // Adjust the maximum width as needed
-    maxHeight: "100%", // Adjust the maximum height as needed
+    maxWidth: "100%",
+    maxHeight: "100%",
   };
 
   const textOutlineStyle = {
-    textShadow: "2px 2px 0 black", // Adjust the shadow values as needed
+    textShadow: "2px 2px 0 black",
   };
 
-  const searchContainerStyle = {
-    position: "absolute",
-    top: 0,
-    left: "50%",
-    transform: "translateX(-50%)",
-    zIndex: 2,
-    width: "100%",
-    padding: "20px",
-    boxSizing: "border-box",
-    textAlign: "center",
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
-    color: "#fff",
+  const containerStyle = {
+    backgroundSize: "cover",
+    backgroundRepeat: "no-repeat",
+    backgroundPosition: "center",
+    minHeight: "100vh",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   };
-  
-const filteredParks = () => {
-  if (!searchCriteria) {
-    return data; // Return all parks if no search criteria is provided
-  } else {
-    const filtered = data?.filter((park) =>
-      park.fullName.toLowerCase().includes(searchCriteria.toLowerCase())
-    );
-    return filtered.length > 0 ? filtered : data; // Return filtered parks if any matches found, otherwise return all parks
-  }
-};
 
+  const filteredParks = () => {
+    let filtered = data;
 
+    if (stateCode) {
+      filtered = filtered.filter(
+        (park) => park.addresses.stateCode === stateCode
+      );
+    } else {
+      filtered = filtered.filter(
+        (park) => park.addresses.stateCode === "AZ"
+      );
+    }
+
+    if (searchCriteria) {
+      filtered = filtered.filter((park) =>
+        park.fullName.toLowerCase().includes(searchCriteria.toLowerCase())
+      );
+    }
+
+    return filtered;
+  };
 
   return (
     <div className="custom-container">
-      <div style={carouselStyle}>
-        <Carousel fade>
-          {filteredParks().map((park) => (
-            <Carousel.Item key={park.id}>
-              <img
-                className="d-block w-100"
-                src={park.images[0]}
-                alt="Park Slide"
-                style={carouselImgStyle}
-              />
-              <Carousel.Caption>
-                <h3 style={textOutlineStyle}>{park.fullName}</h3>
-                {/* <Link to= ${`/api/parks/{park.park_code}`} */}
-                <p style={textOutlineStyle}>{park.description}</p>
-                <Link to = {`/parkdetails/${park.parkCode}`} className="btn btn-success">
-                  Go to {park.fullName}
-                </Link>
-              </Carousel.Caption>
-            </Carousel.Item>
+      <div className="form-group">
+        <select
+          onChange={handleStateCode}
+          value={stateCode}
+          required
+          id="state"
+          name="state"
+          className="form-select"
+        >
+          <option value="">Choose a State</option>
+          {Object.entries(states)?.map(([key, value]) => (
+            <option key={key} value={key}>
+              {value}
+            </option>
           ))}
-        </Carousel>
-              <div style={searchContainerStyle}>
-        <Search />
+        </select>
       </div>
+      <div style={containerStyle}>
+        <div style={carouselStyle}>
+          <Carousel fade>
+            {filteredParks()?.map((park) => (
+              <Carousel.Item key={park.id}>
+                <img
+                  className="d-block w-100"
+                  src={park.images[0]}
+                  alt="Park Slide"
+                  style={carouselImgStyle}
+                />
+                <Carousel.Caption>
+                  <h3 style={textOutlineStyle}>{park.fullName}</h3>
+                  <p style={textOutlineStyle}>{park.description}</p>
+                  <Link
+                    to={`/parkdetails/${park.parkCode}`}
+                    className="btn btn-success"
+                  >
+                    Go to {park.fullName}
+                  </Link>
+                </Carousel.Caption>
+              </Carousel.Item>
+            ))}
+          </Carousel>
+        </div>
       </div>
     </div>
   );

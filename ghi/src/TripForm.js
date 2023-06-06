@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useTripMutation, useGetParksQuery } from "./store/apiSlice";
 import { useNavigate } from "react-router-dom";
 import "./tripform.css";
+import states from "./States";
 
 const TripForm = () => {
   const [stateCode, setStateCode] = useState("");
@@ -9,7 +10,6 @@ const TripForm = () => {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [activities, setActivities] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
   const [trip] = useTripMutation();
   const navigate = useNavigate();
   const { data: parksdb, isSuccess } = useGetParksQuery();
@@ -49,7 +49,7 @@ const TripForm = () => {
     const response = await trip(data);
     if (response.error) {
       // Handle validation or input error
-      setErrorMessage("Please fill in all the fields");
+      <h1>Error!</h1>
     } else {
       // Handle successful signup
       console.log("trip succesfully created");
@@ -58,7 +58,6 @@ const TripForm = () => {
       setStartDate("");
       setEndDate("");
       setActivities("");
-      setErrorMessage("");
       navigate('/mytrips');
     }
   };
@@ -73,68 +72,8 @@ const TripForm = () => {
     alignItems: "center",
     justifyContent: "center",
   };
-  const states = {
-    AL: 'Alabama',
-    AK: 'Alaska',
-    AZ: 'Arizona',
-    AR: 'Arkansas',
-    CA: 'California',
-    CO: 'Colorado',
-    CT: 'Connecticut',
-    DE: 'Delaware',
-    FL: 'Florida',
-    GA: 'Georgia',
-    HI: 'Hawaii',
-    ID: 'Idaho',
-    IL: 'Illinois',
-    IN: 'Indiana',
-    IA: 'Iowa',
-    KS: 'Kansas',
-    KY: 'Kentucky',
-    LA: 'Louisiana',
-    ME: 'Maine',
-    MD: 'Maryland',
-    MA: 'Massachusetts',
-    MI: 'Michigan',
-    MN: 'Minnesota',
-    MS: 'Mississippi',
-    MO: 'Missouri',
-    MT: 'Montana',
-    NE: 'Nebraska',
-    NV: 'Nevada',
-    NH: 'New Hampshire',
-    NJ: 'New Jersey',
-    NM: 'New Mexico',
-    NY: 'New York',
-    NC: 'North Carolina',
-    ND: 'North Dakota',
-    OH: 'Ohio',
-    OK: 'Oklahoma',
-    OR: 'Oregon',
-    PA: 'Pennsylvania',
-    RI: 'Rhode Island',
-    SC: 'South Carolina',
-    SD: 'South Dakota',
-    TN: 'Tennessee',
-    TX: 'Texas',
-    UT: 'Utah',
-    VT: 'Vermont',
-    VA: 'Virginia',
-    WA: 'Washington',
-    WV: 'West Virginia',
-    WI: 'Wisconsin',
-    WY: 'Wyoming'
-  };
-  // <select onChange={handleTechnican} value={technician} required id="technician" name="technician" className="form-select">
-  //               <option>Choose a Technician</option>
-  //               {technicians.map(technician => {
-  //                 return (
-  //                   <option key={technician.id} value={technician.first_name}>
-  //                     {technician.first_name}
-  //                   </option>
-  //                 )
-  //               })}
-  //             </select>
+
+
   useEffect(() => {
   }, [stateCode])
   return (
@@ -148,8 +87,8 @@ const TripForm = () => {
             <div className="col-lg-12 login-key">
               <i className="fa fa-key" aria-hidden="true"></i>
             </div>
-            <div className="col-lg-12 login-title">TRIP Panel</div>
-            <div className="col-lg-12 login-form">
+            <div className="col-lg-12 login-title" style={{ marginBottom: '5px' }}><h3>Trip Panel</h3></div>
+            <div className="col-lg-12 login-form" style={{ marginBottom: '10px' , alignItems: "center" , justifyContent: 'center' }}>
               <form onSubmit={handleSubmit}>
                <div className="form-group">
                 <select onChange={handleStateCode} value={stateCode} required id="state" name="state" className="form-select">
@@ -232,11 +171,8 @@ const TripForm = () => {
                   )
                 }
                 <div className="col-lg-12 loginbttm">
-                  <div className="col-lg-6 login-btm login-text">
-                    {errorMessage && <div className="error-message">{errorMessage}</div>}
-                  </div>
                   <div className="col-lg-6 login-btm login-button">
-                    <button type="submit" className="btn btn-outline-primary">
+                    <button type="submit" className="btn btn-outline-primary" style={{marginTop: '5px', marginBottom: '5px'}}>
                       Create Trip
                     </button>
                   </div>
@@ -251,13 +187,5 @@ const TripForm = () => {
     </div>
   );
 };
-              // <div className="form-group">
-              //   <label className="form-control-label">Activities</label>
-              //   <input
-              //     type="text"
-              //     className="form-control"
-              //     value={activities}
-              //     onChange={(e) => setActivities(e.target.value)}
-              //   />
-              // </div>
+
 export default TripForm;
