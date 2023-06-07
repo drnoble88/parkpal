@@ -3,6 +3,7 @@ import { useTripMutation, useGetParksQuery } from "./store/apiSlice";
 import { useNavigate } from "react-router-dom";
 import "./tripform.css";
 import states from "./States";
+import Select from "react-select"
 
 const TripForm = () => {
   const [stateCode, setStateCode] = useState("");
@@ -83,14 +84,16 @@ const TripForm = () => {
          <div className="col-lg-3 col-md-2"></div>
           <div className="col-lg-6 col-md-8 login-box">
             <div className="trip-form-container">
-            
             <div className="col-lg-12 login-key">
               <i className="fa fa-key" aria-hidden="true"></i>
             </div>
-            <div className="col-lg-12 login-title" style={{ marginBottom: '5px' }}><h3>Trip Panel</h3></div>
+            <div className="col-lg-12 login-title" style={{  marginBottom: '5px', display: 'flex', justifyContent: 'center', alignItems: 'center'}}><h2>Book your Trip!</h2></div>
             <div className="col-lg-12 login-form" style={{ marginBottom: '10px' , alignItems: "center" , justifyContent: 'center' }}>
               <form onSubmit={handleSubmit}>
                <div className="form-group">
+                <label className="form-control-label">
+                 <h5>Park State</h5> 
+                </label>
                 <select onChange={handleStateCode} value={stateCode} required id="state" name="state" className="form-select">
                   <option value="">Choose a State</option>
                     {Object.entries(states).map(([key, value]) => {
@@ -102,11 +105,13 @@ const TripForm = () => {
                     })}
                   </select>
                 </div>
-                {/* <div className="form-group"> */}
                   {stateCode &&
                   <div className="form-group">
+                    <label className="form-control-label">
+                      <h5>Park Name</h5> 
+                    </label>
                     <select onChange={handlePark} value={nationalPark} required id="park" name="park" className="form-select">
-                      <option value="">Choose a Park</option>
+                      <option value="" className="form-select">Choose a Park</option>
                         {parksdb.filter(park => park.addresses.stateCode === stateCode)
                         .map(park => {
                             return (
@@ -120,7 +125,9 @@ const TripForm = () => {
                   }
                 {nationalPark &&
                   <div className="form-group">
-                  <label className="form-control-label">Start Date</label>
+                  <label className="form-control-label">
+                    <h5>Start Date</h5>
+                  </label>
                   <input
                     type="date"
                     className="form-control"
@@ -129,7 +136,9 @@ const TripForm = () => {
                   />
                 </div>}
                 {nationalPark && <div className="form-group">
-                  <label className="form-control-label">End Date</label>
+                  <label className="form-control-label">
+                    <h5>End Date</h5>
+                  </label>
                   <input
                     type="date"
                     className="form-control"
@@ -137,27 +146,13 @@ const TripForm = () => {
                     onChange={(e) => setEndDate(e.target.value)}
                   />
                 </div>}
-                {/* {
-                endDate &&
-                  <div className="form-group">
-                    <select onChange={handleActivities} value={activities} required id="activities" name="activities" className="form-select">
-                      <option value="">Choose an Activity</option>
-                      {parksdb
-                        .filter(park => park.fullName === nationalPark)
-                        .map(park => park.activities.map(activity => (
-                          <option key={activity} value={activity}>
-                            {console.log(activity)}
-                            {activity}
-                          </option>
-                        )))}  
-                    </select>
-                  </div>
-                  } */}
                 {
                   endDate && (
                     <div>
                       <div className="form-group">
-                        <label className="form-control-label">Activities</label>
+                        <label className="form-control-label">
+                         <h5>Activities</h5> 
+                        </label>
                         <input
                           type="text"
                           className="form-control"
@@ -170,12 +165,10 @@ const TripForm = () => {
                     </div>
                   )
                 }
-                <div className="col-lg-12 loginbttm">
-                  <div className="col-lg-6 login-btm login-button">
-                    <button type="submit" className="btn btn-outline-primary" style={{marginTop: '5px', marginBottom: '5px'}}>
+                <div className="col-lg-12 loginbttm"  style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                    <button type="submit" className="btn btn-outline-primary" style={{marginTop: '15px'}}>
                       Create Trip
                     </button>
-                  </div>
                 </div>
               </form>
              </div>
