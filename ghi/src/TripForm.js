@@ -87,7 +87,7 @@ const TripForm = () => {
             <div className="col-lg-12 login-key">
               <i className="fa fa-key" aria-hidden="true"></i>
             </div>
-            <div className="col-lg-12 login-title" style={{  marginBottom: '5px', display: 'flex', justifyContent: 'center', alignItems: 'center'}}><h2>Book your Trip!</h2></div>
+            <div className="col-lg-12 login-title" style={{ marginBottom: '5px' }}><h3>Trip Panel</h3></div>
             <div className="col-lg-12 login-form" style={{ marginBottom: '10px' , alignItems: "center" , justifyContent: 'center' }}>
               <form onSubmit={handleSubmit}>
                <div className="form-group">

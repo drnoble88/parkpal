@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { useGetParksQuery } from "./store/apiSlice";
 import Carousel from "react-bootstrap/Carousel";
-import Search from "./Search";
+import { HashLoader }  from "react-loading"
 import { Link } from "react-router-dom";
 import states from "./States";
 
@@ -26,13 +26,34 @@ const HomePage = () => {
     width: "100%"
   };
 
+
+const selectStyle = {
+  display:"flex",
+  justifyContent:"center",
+  appearance: "none",
+  backgroundColor: "white",
+  border: "none",
+  padding: "0",
+  marginLeft: "930px",
+  marginTop: "820px",
+  fontFamily: "inherit",
+  fontSize: "inherit",
+  cursor: "inherit",
+  lineHeight: "inherit",
+  position:"absolute",
+  zIndex:2
+  
+};
+
+
+
   const carouselImgStyle = {
     zIndex: 1,
     width: "100vw",
     height: "100vh",
     objectFit: "cover",
     maxWidth: "100%",
-    maxHeight: "100%",
+    maxHeight: "100%"
   };
 
   const textOutlineStyle = {
@@ -47,23 +68,24 @@ const HomePage = () => {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
+    zIndex:0
   };
 
   const filteredParks = () => {
     let filtered = data;
 
     if (stateCode) {
-      filtered = filtered.filter(
+      filtered = filtered?.filter(
         (park) => park.addresses.stateCode === stateCode
       );
     } else {
-      filtered = filtered.filter(
-        (park) => park.addresses.stateCode === "AZ"
+      filtered = filtered?.filter(
+        (park) => park.addresses.stateCode === "FL"
       );
     }
 
     if (searchCriteria) {
-      filtered = filtered.filter((park) =>
+      filtered = filtered?.filter((park) =>
         park.fullName.toLowerCase().includes(searchCriteria.toLowerCase())
       );
     }
@@ -73,26 +95,13 @@ const HomePage = () => {
 
   return (
     <div className="custom-container">
-      <div className="form-group">
-        <select
-          onChange={handleStateCode}
-          value={stateCode}
-          required
-          id="state"
-          name="state"
-          className="form-select"
-        >
-          <option value="">Choose a State</option>
-          {Object.entries(states)?.map(([key, value]) => (
-            <option key={key} value={key}>
-              {value}
-            </option>
-          ))}
-        </select>
+      <div style={selectStyle}>
+        
       </div>
       <div style={containerStyle}>
         <div style={carouselStyle}>
           <Carousel fade>
+            
             {filteredParks()?.map((park) => (
               <Carousel.Item key={park.id}>
                 <img
@@ -102,6 +111,25 @@ const HomePage = () => {
                   style={carouselImgStyle}
                 />
                 <Carousel.Caption>
+                  <div className="row">
+                    <div className="col-md-12 text-center">
+                      <select
+                        onChange={handleStateCode}
+                        value={stateCode}
+                        required
+                        id="state"
+                        name="state"
+                        style={{ width: "200px", borderRadius:"5px 5px 5px 5px", border:"blue"}}
+                      >
+                        <option value="">Choose a State</option>
+                        {Object.entries(states)?.map(([key, value]) => (
+                          <option key={key} value={key}>
+                            {value}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
                   <h3 style={textOutlineStyle}>{park.fullName}</h3>
                   <p style={textOutlineStyle}>{park.description}</p>
                   <Link
@@ -109,6 +137,7 @@ const HomePage = () => {
                     className="btn btn-success"
                   >
                     Go to {park.fullName}
+                    
                   </Link>
                 </Carousel.Caption>
               </Carousel.Item>

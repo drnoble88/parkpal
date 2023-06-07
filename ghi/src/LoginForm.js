@@ -25,7 +25,7 @@ const LoginForm = () => {
     <div
       className="container d-flex flex-column align-items-center justify-content-center"
       style={{
-        backgroundImage: `url('https://images.pexels.com/photos/4134225/pexels-photo-4134225.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2')`,
+        backgroundImage: `url('https://4kwallpapers.com/images/wallpapers/moraine-lake-banff-national-park-mountains-daytime-scenery-3840x2160-2923.jpg')`,
         backgroundSize: "cover",
         backgroundPosition: "center",
         minHeight: "100vh",
