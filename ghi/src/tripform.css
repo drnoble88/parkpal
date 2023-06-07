@@ -1,8 +1,10 @@
+
+
 .trip-form-container {
   background: rgba(255, 255, 255, 0.25);
   border-radius: 20px;
   backdrop-filter: blur(10px);
-  padding: 40px;
+  padding: 10px 40px;
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
   -webkit-backdrop-filter: blur(4px);
   border: 1px solid rgba(255, 255, 255, 0.18);
@@ -10,22 +12,23 @@
 }
 
 .trip-form-container .form-group label {
-  color: white;
+  color: black;
+  
 }
 
 .trip-form-container .form-control {
-  background: rgba(255, 255, 255, 0.25);
-  color: white;
+  background: white;
+  color: black;
   border: none;
 }
 
 .trip-form-container .form-control::placeholder {
-  color: rgba(255, 255, 255, 0.5);
+  color: white;
 }
 
 .trip-form-container .btn {
   background-color: rgba(0, 123, 255, 0.8);
-  color: white;
+  color: black;
   border: none;
 }
 
@@ -33,5 +36,12 @@
   background-color: rgba(0, 123, 255, 1);
 }
 .form-select {
-    margin-top: 5px;
+  background: white;
+  color: black;
+  border: none;
+}
+
+@font-face {
+  font-family: 'CustomFont';
+  src: url('https://www.fontspace.com/oversouth-regular-font-f65477') format('truetype');
 }

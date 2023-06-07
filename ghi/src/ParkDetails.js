@@ -28,7 +28,8 @@ const ParkDetails = () => {
     objectFit: "contain",
     display: "flex",
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
+    
   };
 
   const arrowIconStyle = {

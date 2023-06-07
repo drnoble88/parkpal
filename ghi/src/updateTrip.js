@@ -8,82 +8,81 @@ const UpdateTrip = () => {
   const { tripId } = useParams();
   const { data: oneTrip } = useGetOneTripQuery(tripId);
   const [stateCode, setStateCode] = useState("");
-  const [nationalPark, setNationalPark] = useState(oneTrip?.national_park_name);
-  const [startDate, setStartDate] = useState(oneTrip?.start_date);
-  const [endDate, setEndDate] = useState(oneTrip?.end_date);
-  const [activities, setActivities] = useState(oneTrip?.activities);
+  const [nationalPark, setNationalPark] = useState("");
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const [activities, setActivities] = useState("");
   const [update] = useUpdateTripMutation();
   const navigate = useNavigate();
   const { data: parksdb, isSuccess } = useGetParksQuery();
-  console.log("OneTrip:::", oneTrip)
-  
+
+  useEffect(() => {
+    if (oneTrip) {
+      setNationalPark(oneTrip.national_park_name);
+      setStartDate(oneTrip.start_date);
+      setEndDate(oneTrip.end_date);
+      setActivities(oneTrip.activities);
+    }
+  }, [oneTrip]);
+
   const act = () => {
     return parksdb
-      ?.filter(park => park.fullName === nationalPark)
-      .map(park => park.activities.join(" - "))
+      ?.filter((park) => park.fullName === nationalPark)
+      .map((park) => park.activities.join(" - "))
       .join(" - ");
   };
-  
-  const handleStateCode = (event) => {
-    setStateCode(event.target.value)
-  }
 
   const handlePark = (event) => {
-    const value = event.target.value
-    setNationalPark(value)
-  }
-  
+    const value = event.target.value;
+    setNationalPark(value);
+  };
+
   const handleActivities = (event) => {
-    const value = event.target.value
-    setActivities(value)
-  }
-  
+    const value = event.target.value;
+    setActivities(value);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = {
-      "national_park_name": nationalPark,
-      "start_date": startDate,
-      "end_date": endDate,
-      "activities": activities,
-      "id": tripId
-    }
+      national_park_name: nationalPark,
+      start_date: startDate,
+      end_date: endDate,
+      activities: activities,
+      id: tripId,
+    };
 
-    console.log("DATAAA", data)
+    console.log("DATAAA", data);
     const response = await update(data);
     if (response.error) {
-      <h1>Error!</h1>
+      console.log("Error!");
       // Handle validation or input error
     } else {
       // Handle successful signup
-      console.log("trip succesfully created");
+      console.log("Trip successfully updated");
       // Reset form inputs
       setNationalPark("");
       setStartDate("");
       setEndDate("");
       setActivities("");
-      navigate('/mytrips');
+      navigate("/mytrips");
     }
   };
 
   const containerStyle = {
     backgroundImage: `url('https://4kwallpapers.com/images/wallpapers/moraine-lake-banff-national-park-mountains-daytime-scenery-3840x2160-2923.jpg')`,
-    backgroundSize: 'cover',
-    backgroundRepeat: 'no-repeat',
-    backgroundPosition: 'center',
-    minHeight: '100vh',
+    backgroundSize: "cover",
+    backgroundRepeat: "no-repeat",
+    backgroundPosition: "center",
+    minHeight: "100vh",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
   };
-  
+
   const formStyle = {
-    color: 'white', // Set text color to white
+    color: "white", // Set text color to white
   };
-
-
-
-  useEffect(() => {
-  }, [stateCode])
 
   return (
     <div style={containerStyle}>
@@ -95,14 +94,14 @@ const UpdateTrip = () => {
               <div className="col-lg-12 login-key">
                 <i className="fa fa-key" aria-hidden="true"></i>
               </div>
-              <div className="col-lg-12 login-title">
-                <h1 >{oneTrip?.national_park_name}</h1>
-              </div>
+            <div className="col-lg-12 login-title" style={{  marginBottom: '5px', display: 'flex', justifyContent: 'center', alignItems: 'center'}}><h2>{nationalPark}</h2></div>
               <div className="col-lg-12 login-form">
                 <form onSubmit={handleSubmit} style={formStyle}>
-                  { (
+                  {oneTrip && (
                     <div className="form-group">
-                      <label className="form-control-label">Start Date</label>
+                      <label className="form-control-label">
+                        <h5>Start Date</h5>
+                        </label>
                       <input
                         type="date"
                         className="form-control"
@@ -111,9 +110,11 @@ const UpdateTrip = () => {
                       />
                     </div>
                   )}
-                  { (
+                  {oneTrip && (
                     <div className="form-group">
-                      <label className="form-control-label">End Date</label>
+                      <label className="form-control-label">
+                        <h5>End Date</h5>
+                      </label>
                       <input
                         type="date"
                         className="form-control"
@@ -122,10 +123,12 @@ const UpdateTrip = () => {
                       />
                     </div>
                   )}
-                  {(
+                  {oneTrip && (
                     <div>
                       <div className="form-group">
-                        <label className="form-control-label">Activities</label>
+                        <label >
+                         <h5>Activities</h5> 
+                          </label>
                         <input
                           type="text"
                           className="form-control"
@@ -133,16 +136,16 @@ const UpdateTrip = () => {
                           onChange={handleActivities}
                         />
                       </div>
-                      <h3>Please input based on the activities below</h3>
-                      {act()}
+                      <h5 style={{display: 'flex', justifyContent: 'center', alignItems: 'center', textAlign:"center", color:"black"}}>Please input based on the activities below</h5>
+                      <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', textAlign:"center",color:"black"}}>
+                        {act()}
+                      </div>
                     </div>
                   )}
-                  <div className="col-lg-12 loginbttm">
-                    <div className="col-lg-6 login-btm login-button">
-                      <button type="submit" className="btn btn-outline-primary">
-                        Update Trip
+                  <div className="col-lg-12 loginbttm"  style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                      <button type="submit" className="btn btn-outline-primary" style={{marginTop: '15px'}}>
+                        Create Trip
                       </button>
-                    </div>
                   </div>
                 </form>
               </div>
@@ -156,4 +159,3 @@ const UpdateTrip = () => {
 };
 
 export default UpdateTrip;
-
