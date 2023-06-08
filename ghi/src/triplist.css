@@ -1,4 +1,10 @@
-@font-face {
-  font-family: 'CustomFont';
-  src: url('./fonts/custom-font.ttf') format('truetype');
+
+.yourtrips {
+  font-size: 4em;
+  font-weight: 700;
+  text-transform: uppercase;
 }
+
+.font-link {
+   font-family: 'Bagel Fat One'
+ }

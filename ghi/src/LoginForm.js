@@ -43,14 +43,13 @@ const LoginForm = () => {
               boxShadow: "0 8px 32px 0 rgba(31, 38, 135, 0.37)",
               border: "1px solid rgba(255, 255, 255, 0.18)",
               borderRadius: "10px",
-              height: "200px",
+              height: "180px",
               width: "300px",
             }}
           >
             <div className="col-lg-12 login-key">
               <i className="fa fa-key" aria-hidden="true"></i>
             </div>
-            <div className="col-lg-12 login-title">Login</div>
             <div className="col-lg-12 login-form">
               <form onSubmit={handleSubmit}>
                 <div className="form-group">
@@ -73,17 +72,14 @@ const LoginForm = () => {
                     style={{ marginTop: "10px" }}
                   />
                 </div>
-                <div className="col-lg-12 loginbttm">
-                  <div className="col-lg-6 login-btm login-text">
-                    Forgot password
-                  </div>
-                  <div className="col-lg-6 login-btm login-button">
+                <div className="col-lg-12 loginbttm" style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
+                  <div className="login-btm login-button" >
                     <button
                       type="submit"
-                      className="btn btn-outline-primary"
+                      className="btn btn-dark"
                       style={{ marginTop: "10px" }}
                     >
-                      LOGIN
+                      Login
                     </button>
                   </div>
                 </div>

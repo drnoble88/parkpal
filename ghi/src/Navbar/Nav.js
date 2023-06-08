@@ -40,9 +40,6 @@ function Navbar() {
             <img src={logoImage} alt="Logo" className="logo-image" />
           </a>
           <h1 className="title">ParkPal</h1>
-        </div>
-
-        <div className="App">
           <ul id="navbar">
             <li className="nav-item">
               <NavLink className="active" aria-current="page" to="/">
@@ -69,6 +66,7 @@ function Navbar() {
             )}
           </ul>
         </div>
+
         <div className="auth-links">
           <div className="auth-button">
             {!account && (

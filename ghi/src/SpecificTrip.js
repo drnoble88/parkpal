@@ -1,29 +1,35 @@
 import { useParams } from "react-router-dom";
 import React, { useState, useEffect } from "react";
-import { useUpdateTripMutation, useGetParksQuery, useGetOneTripQuery } from "./store/apiSlice";
+import { useTripMutation, useGetParksQuery, useGetOneParkQuery  } from "./store/apiSlice";
 import { useNavigate } from "react-router-dom";
 import "./tripform.css";
+import states from "./States";
 
-const UpdateTrip = () => {
-  const { tripId } = useParams();
-  const { data: oneTrip } = useGetOneTripQuery(tripId);
+const SpecificTrip = () => {
+  const { parkCode } = useParams();
+  const {data: park1} = useGetOneParkQuery(parkCode);
   const [stateCode, setStateCode] = useState("");
   const [nationalPark, setNationalPark] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [activities, setActivities] = useState("");
-  const [update] = useUpdateTripMutation();
+  const [trip] = useTripMutation();
   const navigate = useNavigate();
-  const { data: parksdb, isSuccess } = useGetParksQuery();
+  const { data: parksdb } = useGetParksQuery();
 
   useEffect(() => {
-    if (oneTrip) {
-      setNationalPark(oneTrip.national_park_name);
-      setStartDate(oneTrip.start_date);
-      setEndDate(oneTrip.end_date);
-      setActivities(oneTrip.activities);
+    if (park1) {
+      setNationalPark(park1.fullName);
     }
-  }, [oneTrip]);
+  }, [park1]);
+
+ const handleStateCode = (event) => {
+    // const value = value
+    // console.log(value)
+    setStateCode(event.target.value)
+    console.log(stateCode)
+  }
+  // let act = activities.join(" - ");
 
   const act = () => {
     return parksdb
@@ -45,27 +51,26 @@ const UpdateTrip = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = {
-      national_park_name: nationalPark,
-      start_date: startDate,
-      end_date: endDate,
-      activities: activities,
-      id: tripId,
-    };
+      "national_park_name": nationalPark,
+      "start_date": startDate,
+      "end_date": endDate,
+      "activities": activities
+    }
 
-    console.log("DATAAA", data);
-    const response = await update(data);
+    console.log("DATAAA",data)
+    const response = await trip(data);
     if (response.error) {
-      console.log("Error!");
       // Handle validation or input error
+      <h1>Error!</h1>
     } else {
       // Handle successful signup
-      console.log("Trip successfully updated");
+      console.log("trip succesfully created");
       // Reset form inputs
       setNationalPark("");
       setStartDate("");
       setEndDate("");
       setActivities("");
-      navigate("/mytrips");
+      navigate('/mytrips');
     }
   };
 
@@ -97,7 +102,7 @@ const UpdateTrip = () => {
             <div className="col-lg-12 login-title" style={{  marginBottom: '5px', display: 'flex', justifyContent: 'center', alignItems: 'center'}}><h2>{nationalPark}</h2></div>
               <div className="col-lg-12 login-form">
                 <form onSubmit={handleSubmit} style={formStyle}>
-                  {oneTrip && (
+                  {parkCode && (
                     <div className="form-group">
                       <label className="form-control-label">
                         <h5>Start Date</h5>
@@ -110,10 +115,10 @@ const UpdateTrip = () => {
                       />
                     </div>
                   )}
-                  {oneTrip && (
+                  {parkCode && (
                     <div className="form-group">
                       <label className="form-control-label">
-                        <h5>End Date</h5>
+                        <h5>End Date</h5>   
                       </label>
                       <input
                         type="date"
@@ -123,7 +128,7 @@ const UpdateTrip = () => {
                       />
                     </div>
                   )}
-                  {oneTrip && (
+                  {parkCode && (
                     <div>
                       <div className="form-group">
                         <label >
@@ -143,8 +148,8 @@ const UpdateTrip = () => {
                     </div>
                   )}
                   <div className="col-lg-12 loginbttm"  style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-                      <button type="submit" className="btn btn-dark mt-2" style={{marginTop: '15px'}}>
-                        Update Trip
+                      <button type="submit" className="btn btn-dark" style={{marginTop: '15px'}}>
+                        Create Trip
                       </button>
                   </div>
                 </form>
@@ -158,4 +163,5 @@ const UpdateTrip = () => {
   );
 };
 
-export default UpdateTrip;
+
+export default SpecificTrip;

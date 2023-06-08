@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { useGetParksQuery } from "./store/apiSlice";
 import Carousel from "react-bootstrap/Carousel";
-import { HashLoader }  from "react-loading"
+import { HashLoader } from "react-loading";
 import { Link } from "react-router-dom";
 import states from "./States";
 
@@ -10,9 +10,11 @@ const HomePage = () => {
   const { data, isSuccess } = useGetParksQuery();
   const searchCriteria = useSelector((state) => state.parkSearch.value);
   const [stateCode, setStateCode] = useState();
+  const [activeIndex, setActiveIndex] = useState(0);
 
   const handleStateCode = (event) => {
     setStateCode(event.target.value);
+    setActiveIndex(0); // Reset activeIndex to 0 when stateCode changes
   };
 
   if (!isSuccess) {
@@ -23,29 +25,25 @@ const HomePage = () => {
   const carouselStyle = {
     position: "relative",
     minHeight: "100vh",
-    width: "100%"
+    width: "100%",
   };
 
-
-const selectStyle = {
-  display:"flex",
-  justifyContent:"center",
-  appearance: "none",
-  backgroundColor: "white",
-  border: "none",
-  padding: "0",
-  marginLeft: "930px",
-  marginTop: "820px",
-  fontFamily: "inherit",
-  fontSize: "inherit",
-  cursor: "inherit",
-  lineHeight: "inherit",
-  position:"absolute",
-  zIndex:2
-  
-};
-
-
+  const selectStyle = {
+    display: "flex",
+    justifyContent: "center",
+    appearance: "none",
+    backgroundColor: "white",
+    border: "none",
+    padding: "0",
+    marginLeft: "930px",
+    marginTop: "820px",
+    fontFamily: "inherit",
+    fontSize: "inherit",
+    cursor: "inherit",
+    lineHeight: "inherit",
+    position: "absolute",
+    zIndex: 2,
+  };
 
   const carouselImgStyle = {
     zIndex: 1,
@@ -53,7 +51,7 @@ const selectStyle = {
     height: "100vh",
     objectFit: "cover",
     maxWidth: "100%",
-    maxHeight: "100%"
+    maxHeight: "100%",
   };
 
   const textOutlineStyle = {
@@ -68,7 +66,7 @@ const selectStyle = {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    zIndex:0
+    zIndex: 0,
   };
 
   const filteredParks = () => {
@@ -93,16 +91,17 @@ const selectStyle = {
     return filtered;
   };
 
+  const handleSelect = (selectedIndex, e) => {
+    setActiveIndex(selectedIndex);
+  };
+
   return (
     <div className="custom-container">
-      <div style={selectStyle}>
-        
-      </div>
+      <div style={selectStyle}></div>
       <div style={containerStyle}>
         <div style={carouselStyle}>
-          <Carousel fade>
-            
-            {filteredParks()?.map((park) => (
+          <Carousel fade activeIndex={activeIndex} onSelect={handleSelect}>
+            {filteredParks()?.map((park, index) => (
               <Carousel.Item key={park.id}>
                 <img
                   className="d-block w-100"
@@ -119,7 +118,11 @@ const selectStyle = {
                         required
                         id="state"
                         name="state"
-                        style={{ width: "200px", borderRadius:"5px 5px 5px 5px", border:"blue"}}
+                        style={{
+                          width: "200px",
+                          borderRadius: "5px",
+                          border: "1px solid blue",
+                        }}
                       >
                         <option value="">Choose a State</option>
                         {Object.entries(states)?.map(([key, value]) => (
@@ -137,7 +140,6 @@ const selectStyle = {
                     className="btn btn-success"
                   >
                     Go to {park.fullName}
-                    
                   </Link>
                 </Carousel.Caption>
               </Carousel.Item>

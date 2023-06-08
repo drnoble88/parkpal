@@ -11,7 +11,7 @@ import TripForm from "./TripForm.js";
 import ParkDetails from "./ParkDetails.js";
 import TripList from "./TripList.js";
 import UpdateTrip from "./updateTrip.js";
-
+import SpecificTrip from "./SpecificTrip.js";
 
 function App() {
   const [launchInfo, setLaunchInfo] = useState([]);
@@ -33,6 +33,8 @@ function App() {
             <Route path="/parkdetails/:parkCode" element={<ParkDetails />} />
             <Route path="/mytrips" element={<TripList />} />
             <Route path="/edittrip/:tripId" element={<UpdateTrip />} />
+            <Route path="/specific/:parkCode" element={<SpecificTrip />} />
+
           </Routes>
         </div>
       </BrowserRouter>

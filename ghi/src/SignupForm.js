@@ -44,6 +44,11 @@ const SignupForm = () => {
     boxShadow: "0 8px 32px 0 rgba(31, 38, 135, 0.37)",
     border: "1px solid rgba(255, 255, 255, 0.18)",
     borderRadius: "10px",
+    width: "300px",
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
   };
 
   return (
@@ -58,41 +63,45 @@ const SignupForm = () => {
             <div className="col-lg-12 login-key">
               <i className="fa fa-key" aria-hidden="true"></i>
             </div>
-            <div className="col-lg-12 login-title">Signup Panel</div>
+            <div className="col-lg-12 login-title font-link" style={{display: "flex", justifyContent: "center", alignItems: "center", marginTop:"10px"}}><h3>Sign-Up Today!</h3></div>
             <div className="col-lg-12 login-form">
               <form onSubmit={handleSubmit}>
                 <div className="form-group">
-                  <label className="form-control-label">USERNAME</label>
+                  <label className="form-control-label"></label>
                   <input
                     type="text"
                     className="form-control"
+                    placeholder="User Name"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                   />
                 </div>
                 <div className="form-group">
-                  <label className="form-control-label">FULLNAME</label>
+                  <label className="form-control-label"></label>
                   <input
                     type="text"
                     className="form-control"
+                    placeholder="Full Name"
                     value={fullname}
                     onChange={(e) => setFullname(e.target.value)}
                   />
                 </div>
                 <div className="form-group">
-                  <label className="form-control-label">EMAIL</label>
+                  <label className="form-control-label"></label>
                   <input
                     type="email"
+                    placeholder="Email"
                     className="form-control"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
                 <div className="form-group">
-                  <label className="form-control-label">PASSWORD</label>
+                  <label className="form-control-label"></label>
                   <input
                     type="password"
                     className="form-control"
+                    placeholder="Password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                   />
@@ -103,10 +112,12 @@ const SignupForm = () => {
                       <div className="error-message">{errorMessage}</div>
                     )}
                   </div>
-                  <div className="col-lg-6 login-btm login-button">
-                    <button type="submit" className="btn btn-outline-primary">
-                      SIGN UP
-                    </button>
+                  <div style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
+                    <div className="login-btm login-button mt-3">
+                      <button type="submit" className="btn btn-dark mt-2">
+                        Sign Up
+                      </button>
+                    </div>
                   </div>
                 </div>
               </form>
