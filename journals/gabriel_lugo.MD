@@ -1,6 +1,6 @@
 5/17/2023
 
-Today, we took on the formidable challenge of implementing backend authorization. It was a complex task, requiring us to navigate through the existing code for authorization. Although it proved to be difficult, this challenge presented an opportunity for us to explore and learn how to read man pages. This new skill was essential in overcoming the obstacles we encountered.
+Today, we took on the formidable challenge of implementing backend authorization. It was a complex task, requiring us to navigate through the existing code for authorization. Although it proved to be difficult, this challenge presented an opportunity for us to explore and learn how to read main pages. This new skill was essential in overcoming the obstacles we encountered.
 
 5/18/2023
 
