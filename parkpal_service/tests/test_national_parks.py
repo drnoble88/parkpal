@@ -60,11 +60,11 @@ def test_list_all_national_parks():
     app.dependency_overrides[NationalParkAPIQueries] = FakeNationalParkAPIQueries
     # Send a GET request to the /api/nationalparks endpoint
     res = client.get("/api/nationalparks")
-    #Assert the respon data 
+    # Assert the respon data 
     data = res.json()
-    #Assert the response status code
+    # Assert the response status code
     assert res.status_code == 200
-    #Assert the respon data 
+    # Assert the respon data 
     assert data == []
 
 
@@ -76,6 +76,3 @@ def test_get_one_national_park():
 
     assert res.status_code == 200
     assert data["parkCode"] == "abr"
-
-
-

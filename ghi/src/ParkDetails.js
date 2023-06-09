@@ -4,10 +4,14 @@ import { useParams } from "react-router-dom";
 import Carousel from 'react-bootstrap/Carousel';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from "react-router-dom";
+import { useGetAccountQuery } from "./store/apiSlice";
+import { imageStyle1, cardTitleStyle, arrowIconStyle1, containerStyle1, whiteBackgroundStyle1, lineStyle } from "./styling";
 
 const ParkDetails = () => {
   const { parkCode } = useParams();
   const { data, isLoading, isError, refetch } = useGetOneParkQuery(parkCode);
+  const { data: account } = useGetAccountQuery();
+
 
   useEffect(() => {
     refetch();
@@ -22,50 +26,9 @@ const ParkDetails = () => {
   }
   let act = data.activities.join(" - ");
 
-  const imageStyle = {
-    // maxWidth: "100%",
-    height: "100%",
-    objectFit: "contain",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: "10px",
-  };
-  const cardTitleStyle = {
-    textDecoration: "underline",
-  };
-  const arrowIconStyle = {
-    filter: "invert(100%) sepia(0%) saturate(0%) hue-rotate(176deg) brightness(109%) contrast(101%)",
-  };
-
-  const containerStyle = {
-    backgroundImage: `url('https://4kwallpapers.com/images/wallpapers/moraine-lake-banff-national-park-mountains-daytime-scenery-3840x2160-2923.jpg')`,
-    backgroundSize: 'cover',
-    backgroundRepeat: 'no-repeat',
-    backgroundPosition: 'center',
-    minHeight: '100vh',
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    fontFamily: 'Bagel Fat One'
-  };
-
-  const whiteBackgroundStyle = {
-    backdropFilter: "blur(10px)",
-    background: "rgba(255, 255, 255, 0.5)",
-    boxShadow: "0 8px 32px 0 rgba(31, 38, 135, 0.37)",
-    border: "1px solid rgba(255, 255, 255, 0.18)",
-    borderRadius: "10px",
-  };
-
-const lineStyle = {
-  width: "100%",
-  borderBottom: "1px solid black", // Update the border color to black
-  margin: "10px 0",
-  };
   return (
-    <div style={containerStyle}>
-      <div style={whiteBackgroundStyle} className="container justify-content-center">
+    <div style={containerStyle1}>
+      <div style={whiteBackgroundStyle1} className="container justify-content-center">
         <div className="row">
           <div className="col-md-12 text-center">
             <h1 style={cardTitleStyle}>{data.fullName}</h1>
@@ -78,8 +41,8 @@ const lineStyle = {
         <div className="row">
           <div className="col-md-12">
             <Carousel
-              nextIcon={<span className="carousel-control-next-icon" style={arrowIconStyle} />}
-              prevIcon={<span className="carousel-control-prev-icon" style={arrowIconStyle} />}
+              nextIcon={<span className="carousel-control-next-icon" style={arrowIconStyle1} />}
+              prevIcon={<span className="carousel-control-prev-icon" style={arrowIconStyle1} />}
             >
               {data?.images.map((image, index) => (
                 <Carousel.Item key={index} style={{height: "600px"}}>
@@ -87,7 +50,7 @@ const lineStyle = {
                     src={image}
                     className="d-block mx-auto rounded"
                     alt="Park Image"
-                    style={imageStyle}
+                    style={imageStyle1}
 
                   />
                 </Carousel.Item>
@@ -95,6 +58,7 @@ const lineStyle = {
             </Carousel>
             <hr style={lineStyle} />
           </div>
+          {account &&
           <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
             <Link
               to={`/specific/${data.parkCode}`}
@@ -103,6 +67,7 @@ const lineStyle = {
               Create a trip for {data.fullName}
             </Link>
           </div>
+              }
           <div className="col-md-12 text-center">
             <h1 style={cardTitleStyle}>Contact Information</h1>
             <p>

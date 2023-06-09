@@ -12,7 +12,7 @@ Furthermore, users have the flexibility to edit or delete their trips directly f
 
 With Parkpal, planning an unforgettable trip to a national park has never been easier.
 
-##### how it's built?
+##### How it's built?
 
 Parkpal utilizes four Docker containers to power the entire website. These containers are:
 
@@ -23,7 +23,7 @@ Parkpal utilizes four Docker containers to power the entire website. These conta
 
 By leveraging these four Docker containers, Parkpal ensures efficient and scalable deployment of its website components, facilitating seamless communication between the frontend, backend, and database layers.
 
-#### what is the future of Parkpal?
+#### What is the future of Parkpal?
 Parkpal was designed as a valuable resource and organizational tool for individuals who have a desire to explore national parks within the US. We are committed to consistently providing refreshing updates to our website, introducing enhanced features to further enhance the user experience.
 
 Upcoming updates will include the integration of Google Maps, allowing users to easily locate and navigate to specific parks. Additionally, we are working on incorporating additional information such as pricing details, enabling users to make informed decisions about their park visits. Furthermore, we are developing a favorites list functionality, allowing users to create a personalized collection of national parks they wish to visit.

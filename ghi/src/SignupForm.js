@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useSignupMutation } from "./store/apiSlice";
 import { useNavigate } from "react-router-dom";
+import { containerStyle1, glassmorphismStyle} from "./styling"
 
 const SignupForm = () => {
   const [username, setUsername] = useState("");
@@ -27,32 +28,8 @@ const SignupForm = () => {
     }
   };
 
-  const containerStyle = {
-    backgroundImage: `url('https://4kwallpapers.com/images/wallpapers/moraine-lake-banff-national-park-mountains-daytime-scenery-3840x2160-2923.jpg')`,
-    backgroundSize: "cover",
-    backgroundRepeat: "no-repeat",
-    backgroundPosition: "center",
-    minHeight: "100vh",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  };
-
-  const glassmorphismStyle = {
-    backdropFilter: "blur(10px)",
-    background: "rgba(255, 255, 255, 0.5)",
-    boxShadow: "0 8px 32px 0 rgba(31, 38, 135, 0.37)",
-    border: "1px solid rgba(255, 255, 255, 0.18)",
-    borderRadius: "10px",
-    width: "300px",
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-  };
-
   return (
-    <div style={containerStyle}>
+    <div style={containerStyle1}>
       <div className="container">
         <div className="row">
           <div className="col-lg-3 col-md-2"></div>

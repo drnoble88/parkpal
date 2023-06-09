@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { useGetParksQuery } from "./store/apiSlice";
 import Carousel from "react-bootstrap/Carousel";
-import { HashLoader } from "react-loading";
 import { Link } from "react-router-dom";
-import states from "./States";
+import states from "./states";
+import {carouselStyle, selectStyle, carouselImgStyle, textOutlineStyle, containerStyle3 } from "./styling";
 
 const HomePage = () => {
   const { data, isSuccess } = useGetParksQuery();
@@ -14,60 +14,12 @@ const HomePage = () => {
 
   const handleStateCode = (event) => {
     setStateCode(event.target.value);
-    setActiveIndex(0); // Reset activeIndex to 0 when stateCode changes
+    setActiveIndex(0);
   };
 
   if (!isSuccess) {
-    // Handle loading state or error state
     return <div>Loading...</div>;
   }
-
-  const carouselStyle = {
-    position: "relative",
-    minHeight: "100vh",
-    width: "100%",
-  };
-
-  const selectStyle = {
-    display: "flex",
-    justifyContent: "center",
-    appearance: "none",
-    backgroundColor: "white",
-    border: "none",
-    padding: "0",
-    marginLeft: "930px",
-    marginTop: "820px",
-    fontFamily: "inherit",
-    fontSize: "inherit",
-    cursor: "inherit",
-    lineHeight: "inherit",
-    position: "absolute",
-    zIndex: 2,
-  };
-
-  const carouselImgStyle = {
-    zIndex: 1,
-    width: "100vw",
-    height: "100vh",
-    objectFit: "cover",
-    maxWidth: "100%",
-    maxHeight: "100%",
-  };
-
-  const textOutlineStyle = {
-    textShadow: "2px 2px 0 black",
-  };
-
-  const containerStyle = {
-    backgroundSize: "cover",
-    backgroundRepeat: "no-repeat",
-    backgroundPosition: "center",
-    minHeight: "100vh",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    zIndex: 0,
-  };
 
   const filteredParks = () => {
     let filtered = data;
@@ -98,7 +50,7 @@ const HomePage = () => {
   return (
     <div className="custom-container">
       <div style={selectStyle}></div>
-      <div style={containerStyle}>
+      <div style={containerStyle3}>
         <div style={carouselStyle}>
           <Carousel fade activeIndex={activeIndex} onSelect={handleSelect}>
             {filteredParks()?.map((park, index) => (

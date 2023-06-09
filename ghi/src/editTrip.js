@@ -2,19 +2,18 @@ import { useParams } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import { useUpdateTripMutation, useGetParksQuery, useGetOneTripQuery } from "./store/apiSlice";
 import { useNavigate } from "react-router-dom";
-import "./tripform.css";
+import "./index.css";
 
 const UpdateTrip = () => {
   const { tripId } = useParams();
   const { data: oneTrip } = useGetOneTripQuery(tripId);
-  const [stateCode, setStateCode] = useState("");
   const [nationalPark, setNationalPark] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [activities, setActivities] = useState("");
   const [update] = useUpdateTripMutation();
   const navigate = useNavigate();
-  const { data: parksdb, isSuccess } = useGetParksQuery();
+  const { data: parksdb } = useGetParksQuery();
 
   useEffect(() => {
     if (oneTrip) {
@@ -52,15 +51,9 @@ const UpdateTrip = () => {
       id: tripId,
     };
 
-    console.log("DATAAA", data);
     const response = await update(data);
     if (response.error) {
-      console.log("Error!");
-      // Handle validation or input error
     } else {
-      // Handle successful signup
-      console.log("Trip successfully updated");
-      // Reset form inputs
       setNationalPark("");
       setStartDate("");
       setEndDate("");
@@ -81,7 +74,7 @@ const UpdateTrip = () => {
   };
 
   const formStyle = {
-    color: "white", // Set text color to white
+    color: "white",
   };
 
   return (
@@ -94,14 +87,14 @@ const UpdateTrip = () => {
               <div className="col-lg-12 login-key">
                 <i className="fa fa-key" aria-hidden="true"></i>
               </div>
-            <div className="col-lg-12 login-title" style={{  marginBottom: '5px', display: 'flex', justifyContent: 'center', alignItems: 'center'}}><h2>{nationalPark}</h2></div>
+              <div className="col-lg-12 login-title" style={{ marginBottom: '5px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}><h2>{nationalPark}</h2></div>
               <div className="col-lg-12 login-form">
                 <form onSubmit={handleSubmit} style={formStyle}>
                   {oneTrip && (
                     <div className="form-group">
                       <label className="form-control-label">
                         <h5>Start Date</h5>
-                        </label>
+                      </label>
                       <input
                         type="date"
                         className="form-control"
@@ -126,9 +119,9 @@ const UpdateTrip = () => {
                   {oneTrip && (
                     <div>
                       <div className="form-group">
-                        <label >
-                         <h5>Activities</h5> 
-                          </label>
+                        <label>
+                          <h5>Activities</h5>
+                        </label>
                         <input
                           type="text"
                           className="form-control"
@@ -136,16 +129,16 @@ const UpdateTrip = () => {
                           onChange={handleActivities}
                         />
                       </div>
-                      <h5 style={{display: 'flex', justifyContent: 'center', alignItems: 'center', textAlign:"center", color:"black"}}>Please input based on the activities below</h5>
-                      <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', textAlign:"center",color:"black"}}>
+                      <h5 style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', textAlign: "center", color: "black" }}>Please input based on the activities below</h5>
+                      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', textAlign: "center", color: "black" }}>
                         {act()}
                       </div>
                     </div>
                   )}
-                  <div className="col-lg-12 loginbttm"  style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-                      <button type="submit" className="btn btn-dark mt-2" style={{marginTop: '15px'}}>
-                        Update Trip
-                      </button>
+                  <div className="col-lg-12 loginbttm" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                    <button type="submit" className="btn btn-dark mt-2" style={{ marginTop: '15px' }}>
+                      Update Trip
+                    </button>
                   </div>
                 </form>
               </div>

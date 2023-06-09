@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useLoginMutation } from "./store/apiSlice";
 import { useNavigate } from "react-router-dom";
-import "./login.css";
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -36,7 +35,7 @@ const LoginForm = () => {
         <div className="row">
           <div className="col-lg-4 col-md-3"></div>
           <div
-            className="col-lg-4 col-md-6 login-box p-4 rounded-lg mx-auto" // Added mx-auto class for horizontal centering
+            className="col-lg-4 col-md-6 login-box p-4 rounded-lg mx-auto"
             style={{
               backdropFilter: "blur(10px)",
               background: "rgba(255, 255, 255, 0.5)",

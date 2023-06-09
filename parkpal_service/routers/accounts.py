@@ -7,11 +7,7 @@ from fastapi import (
     APIRouter,
     Request,
 )
-
-
 from authenticator import authenticator
-
-
 from queries.accounts import (
     AccountIn,
     AccountQueries,
@@ -19,7 +15,6 @@ from queries.accounts import (
     AccountForm,
     AccountToken,
     HttpError
-
 )
 
 router = APIRouter()
