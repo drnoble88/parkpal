@@ -43,3 +43,6 @@ Today, we made several improvements to a trip form page by applying CSS styles. 
 
 # June 8th 2023
 On this day, We made significant updates to the website. We added a booking link on the detailed page, enabling users to easily book trips to national parks. We also dedicated time to improving the website's visual appeal by applying CSS refinements and optimizations across all pages, enhancing the overall user experience.
+
+# June 9th 2023
+We made a link from my trips to the detailed page then we improved and fine tuned everything including the css!

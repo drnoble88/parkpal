@@ -44,3 +44,4 @@ Applied CSS styles to the trip form page, fixed any slicing errors, and resolved
 Created a link on the detailed page to allow users to book trips, and made CSS refinements across the entire website, improving its visual appeal. Users can now easily proceed to book their desired trips, and the overall aesthetic of the website has been enhanced through CSS refinements and optimizations.
 
 # June 9th, 2023:
+Created a link from my trips to detailed trip pages, improved date functionality, and refined CSS styling for the entire website.

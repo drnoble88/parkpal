@@ -41,3 +41,6 @@ June 7th: We applied CSS to the trip form page in the React frontend, adding cus
 
 
 June 8th: We created a link to book a trip from the detail page in the React frontend. We implemented functionality that allows users to easily navigate from the detail page to the booking page for a specific trip. We made CSS improvements throughout the entire website, refining the styles, layout, and visual elements to create a polished and cohesive user interface.
+
+
+June 9th: Finally, at the end of our project journey for now, and ready to submit for grading. Feel a lot of pressure off of my chest now, and ready to start studying for the final assessment.
