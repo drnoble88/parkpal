@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { useGetParksQuery } from "./store/apiSlice";
 import Carousel from "react-bootstrap/Carousel";
 import { Link } from "react-router-dom";
-import states from "./states";
+import states from "./States";
 import {carouselStyle, selectStyle, carouselImgStyle, textOutlineStyle, containerStyle3 } from "./styling";
 
 const HomePage = () => {

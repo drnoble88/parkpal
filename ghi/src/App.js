@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import Construct from "./construct.js";
-import ErrorNotification from "./errorNotification.js";
+import Construct from "./Construct.js";
+import ErrorNotification from "./ErrorNotification.js";
 import "./index.css";
 import Navbar from "./Navbar/Nav.js";
 import { BrowserRouter, Routes, Route } from "react-router-dom";

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useTripMutation, useGetParksQuery } from "./store/apiSlice";
 import { useNavigate } from "react-router-dom";
 import "./index.css";
-import states from "./states";
+import states from "./States";
 
 const TripForm = () => {
   const [stateCode, setStateCode] = useState("");
