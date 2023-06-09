@@ -5,13 +5,13 @@ import "./index.css";
 import Navbar from "./Navbar/Nav.js";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LoginForm from "./login.js";
-import HomePage from "./home.js";
-import SignupForm from "./signupForm.js";
+import HomePage from "./Home.js";
+import SignupForm from "./SignupForm.js";
 import TripForm from "./createTrip.js";
-import ParkDetails from "./parkDetails.js";
+import ParkDetails from "./ParkDetails.js";
 import TripList from "./myTrips.js";
 import UpdateTrip from "./editTrip.js";
-import SpecificTrip from "./specificTrip.js";
+import SpecificTrip from "./SpecificTrip.js";
 
 function App() {
   const [launchInfo, setLaunchInfo] = useState([]);
