@@ -38,3 +38,10 @@ We focused on enhancing the visual appeal of the "My Trips" page, specifically t
 
 # 6/08/2023
 On the details page, we implemented a link that allows users to easily book a trip for a specific national park. By clicking a button, users are redirected to a pre-filled "Create a Trip" page tailored to that specific park, simplifying the trip creation process. Additionally, we refined the buttons across all pages and ensured a cohesive theme throughout the website.
+
+# 6/09/2023
+Today marks the final day of our project. We meticulously reviewed the entire website to ensure that everything was functioning as intended. During the inspection, we encountered a problem on the "My Trips" page where the trip dates were displayed one day ahead of the scheduled dates. We promptly resolved this issue, ensuring accurate date representation. Additionally, we dedicated time to enhancing the visual appeal of the page by styling its title.
+
+Furthermore, we conducted a thorough file cleanup, meticulously eliminating any traces of unused code or unnecessary comments. As part of our optimization efforts, we consolidated all the CSS into the index.css file. Additionally, we streamlined the styling process by consolidating all the styling instructions into a single JavaScript file.
+
+Overall, we are pleased with the progress we have made, ensuring that the project is in excellent shape and ready for deployment.
