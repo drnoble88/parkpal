@@ -50,7 +50,7 @@ export const parkpalApi = createApi({
           credentials: "include",
         };
       },
-      invalidatesTags: ["Account"],
+      invalidatesTags: ["Account", "Trips"]
     }),
     logout: builder.mutation({
       query: () => ({

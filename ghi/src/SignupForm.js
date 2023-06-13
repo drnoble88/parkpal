@@ -8,7 +8,6 @@ const SignupForm = () => {
   const [fullname, setFullname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
   const [signup] = useSignupMutation();
   const navigate = useNavigate();
 
@@ -16,14 +15,11 @@ const SignupForm = () => {
     e.preventDefault();
     const response = await signup({ username, fullname, email, password });
     if (response.error) {
-      setErrorMessage("Please fill in all the fields");
-    } else {
       console.log("Signup successful!");
       setUsername("");
       setFullname("");
       setEmail("");
       setPassword("");
-      setErrorMessage("");
       navigate("/login");
     }
   };
@@ -84,11 +80,6 @@ const SignupForm = () => {
                   />
                 </div>
                 <div className="col-lg-12 loginbttm">
-                  <div className="col-lg-6 login-btm login-text">
-                    {errorMessage && (
-                      <div className="error-message">{errorMessage}</div>
-                    )}
-                  </div>
                   <div style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
                     <div className="login-btm login-button mt-3">
                       <button type="submit" className="btn btn-dark mt-2">
