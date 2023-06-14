@@ -10,7 +10,7 @@ function Navbar() {
   const { data: account } = useGetAccountQuery();
   const [logout] = useLogoutMutation();
   const navigate = useNavigate();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [setIsLoggedIn] = useState(false);
   const [isSticky, setIsSticky] = useState(false);
 
   useEffect(() => {

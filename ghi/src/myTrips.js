@@ -29,7 +29,7 @@ const TripList = () => {
 
   const handleDelete = async (tripId) => {
     try {
-      const response = await deleteTrip(tripId);
+      await deleteTrip(tripId);
     } catch (error) {
     }
   };
@@ -59,7 +59,6 @@ const TripList = () => {
                 <div className="card-body">
                   <img
                     src={parkImage(trip.national_park_name)}
-                    alt="Description for image"
                     width="250"
                     height="150"
                     style={imageStyle}

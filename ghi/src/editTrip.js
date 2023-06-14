@@ -31,10 +31,6 @@ const UpdateTrip = () => {
       .join(" - ");
   };
 
-  const handlePark = (event) => {
-    const value = event.target.value;
-    setNationalPark(value);
-  };
 
   const handleActivities = (event) => {
     const value = event.target.value;

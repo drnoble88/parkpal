@@ -73,7 +73,6 @@ const containerStyle = {
     letterSpacing: ".5px",
     alignItems: "center",
     textAlign: "center",
-    boxShadow: "0 12px 24px rgba(0, 0, 0, 0.6)",
   };
 
   const imageStyle = {
