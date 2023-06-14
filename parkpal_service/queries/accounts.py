@@ -19,7 +19,7 @@ class AccountOut(AccountIn):
 
 
 class AccountOutWithPassword(AccountOut):
-    hashed_password:str
+    hashed_password: str
 
 
 class Account(BaseModel):
@@ -28,6 +28,7 @@ class Account(BaseModel):
     fullname: str
     email: str
     hashed_password: str
+
 
 class AccountHidden(BaseModel):
     id: str
@@ -54,7 +55,7 @@ class AccountQueries:
     def get(self, username: str) -> Account:
         with pool.connection() as conn:
             with conn.cursor() as db:
-                result = db.execute (
+                result = db.execute(
                     """
                     SELECT id, username, fullname, email, hashed_password
                     FROM accounts
@@ -65,25 +66,24 @@ class AccountQueries:
                     ]
                 )
                 records = result.fetchone()
-                if records == None:
+                if records is None:
                     return None
                 else:
                     return Account(
-                        id= records[0],
-                        username = records[1],
-                        fullname = records[2],
-                        email = records[3],
-                        hashed_password = records[4]
+                        id=records[0],
+                        username=records[1],
+                        fullname=records[2],
+                        email=records[3],
+                        hashed_password=records[4]
                     )
 
-
-    def create(self, info: AccountIn, hashed_password:str) -> Account:
+    def create(self, info: AccountIn, hashed_password: str) -> Account:
         username = info.username
         if self.get(username) is not None:
             raise DuplicateAccountError()
         with pool.connection() as conn:
             with conn.cursor() as db:
-                result = db.execute (
+                result = db.execute(
                     """
                     INSERT INTO accounts
                     (username, fullname, email, hashed_password)
@@ -101,9 +101,9 @@ class AccountQueries:
                 id = result.fetchone()[0]
 
                 return Account(
-                    id= id,
-                    username = info.username,
-                    fullname = info.fullname,
-                    email = info.email,
-                    hashed_password = hashed_password
+                    id=id,
+                    username=info.username,
+                    fullname=info.fullname,
+                    email=info.email,
+                    hashed_password=hashed_password
                 )

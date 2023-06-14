@@ -1,7 +1,6 @@
 from fastapi.testclient import TestClient
-from queries.trips import TripIn, TripOut, TripsRepository
+from queries.trips import TripsRepository
 from main import app
-from typing import List
 from authenticator import authenticator
 
 client = TestClient(app)
@@ -32,8 +31,10 @@ def fake_get_current_account_data():
 def test_get_all():
     # Override the TripsRepository dependency with the FakeTripsRepository
     app.dependency_overrides[TripsRepository] = FakeTripsRepository
-    # Override the authenticator.get_current_account_data dependency with fake_get_current_account_data
-    app.dependency_overrides[authenticator.get_current_account_data] = fake_get_current_account_data
+    # Override the authenticator.get_current_account_data dependency with
+    # fake_get_current_account_data
+    app.dependency_overrides[authenticator.get_current_account_data] = (
+        fake_get_current_account_data)
 
     # Send a GET request to the /api/trips endpoint
     res = client.get("/api/trips")
@@ -48,19 +49,22 @@ def test_get_all():
 
 def test_get_one():
     app.dependency_overrides[TripsRepository] = FakeTripsRepository
-    app.dependency_overrides[authenticator.get_current_account_data] = fake_get_current_account_data
+    app.dependency_overrides[authenticator.get_current_account_data] = (
+        fake_get_current_account_data)
 
     res = client.get("/api/trip/1")
     data = res.json()
 
     assert res.status_code == 200
-    # Assert that the "id" field in the response data matches the expected value "1"
+    # Assert that the "id" field in the response data matches the expected
+    # value "1"
     assert data["id"] == "1"
 
 
 def test_delete_trip():
     app.dependency_overrides[TripsRepository] = FakeTripsRepository
-    app.dependency_overrides[authenticator.get_current_account_data] = fake_get_current_account_data
+    app.dependency_overrides[authenticator.get_current_account_data] = (
+        fake_get_current_account_data)
 
     res = client.delete("/api/trip/1")
     data = res.json()

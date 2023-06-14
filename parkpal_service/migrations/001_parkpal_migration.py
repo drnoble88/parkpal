@@ -9,7 +9,7 @@ steps = [
             activities TEXT NOT NULL
         );
         """,
-        ## drop the table
+        # drop the table
         """
         DROP TABLE appointments;
         """
@@ -24,11 +24,9 @@ steps = [
             hashed_password VARCHAR(50) NOT NULL
         );
         """,
-        ## drop the table
+        # drop the table
         """
         DROP TABLE accounts;
         """
     ]
 ]
-
-

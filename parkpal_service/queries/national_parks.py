@@ -16,14 +16,15 @@ class NationalPark(BaseModel):
     images: list
     parkCode: str
 
+
 class NationalParkOut(NationalPark):
     id: str
 
 
-    
 class NationalParkAPIQueries:
     def seeding_all_national_parks(self) -> List[NationalPark]:
-        res = requests.get('https://developer.nps.gov/api/v1/parks?limit=469&api_key=sddc5G1qLchZwcSUwLr1dA2NTiaXvMs5yrOS41jE')
+        res = requests.get('https://developer.nps.gov/api/v1/parks?limit=469&\
+                           api_key=sddc5G1qLchZwcSUwLr1dA2NTiaXvMs5yrOS41jE')
         data = res.json()
         real_data = data['data']
         new_data = []
@@ -37,25 +38,28 @@ class NationalParkAPIQueries:
             for index in range(len(entry["activities"])):
                 list_activities.append(entry["activities"][index]["name"])
             if len(entry["contacts"]["phoneNumbers"]) != 0:
-                phone_number = entry["contacts"]["phoneNumbers"][0]["phoneNumber"]
+                phone_number = entry["contacts"]["phoneNumbers"]
+                [0]["phoneNumber"]
             if len(entry["addresses"]) != 0:
                 address = entry["addresses"][0]
             national_park = NationalPark(
                 fullName=entry["fullName"],
-                activities= list_activities,
+                activities=list_activities,
                 description=entry["description"],
                 phoneNumber=phone_number,
-                emailAddresses=entry["contacts"]["emailAddresses"][0]["emailAddress"],
-                addresses= address,
+                emailAddresses=entry["contacts"]["emailAddresses"]
+                [0]["emailAddress"],
+                addresses=address,
                 images=all_images,
                 parkCode=entry["parkCode"]
             )
             with pool.connection() as conn:
                 with conn.cursor() as db:
-                    db.execute (
+                    db.execute(
                         """
                         INSERT INTO nationalparks
-                        (fullName, activities, description, phoneNumber, emailAddresses, addresses, images, parkCode)
+                        (fullName, activities, description, phoneNumber,
+                        emailAddresses, addresses, images, parkCode)
                         VALUES
                         (%s, %s, %s, %s, %s, %s, %s, %s)
                         RETURNING id;
@@ -80,13 +84,13 @@ class NationalParkAPIQueries:
 
         return new_data
 
-
     def get_one_national_park(self, park_code: str) -> NationalParkOut:
         with pool.connection() as conn:
             with conn.cursor() as db:
                 result = db.execute(
                     """
-                    SELECT id, fullName, activities, description, phoneNumber, emailAddresses, addresses, images, parkCode
+                    SELECT id, fullName, activities, description,
+                      phoneNumber, emailAddresses, addresses, images, parkCode
                     FROM nationalparks
                     WHERE parkCode = %s;
                     """,
@@ -95,40 +99,41 @@ class NationalParkAPIQueries:
                 record = result.fetchone()
                 if record:
                     return NationalParkOut(
-                        id= record[0],
-                        fullName= record[1],
-                        activities= ast.literal_eval(record[2]),
-                        description= record[3],
-                        phoneNumber= record[4],
-                        emailAddresses= record[5],
-                        addresses= ast.literal_eval(record[6]),
-                        images= ast.literal_eval(record[7]),
-                        parkCode= record[8]
+                        id=record[0],
+                        fullName=record[1],
+                        activities=ast.literal_eval(record[2]),
+                        description=record[3],
+                        phoneNumber=record[4],
+                        emailAddresses=record[5],
+                        addresses=ast.literal_eval(record[6]),
+                        images=ast.literal_eval(record[7]),
+                        parkCode=record[8]
                     )
-
 
     def list_all_national_parks(self) -> List[NationalParkOut]:
         with pool.connection() as conn:
             with conn.cursor() as db:
-                    db.execute(
+                db.execute(
                         """
-                        SELECT id, fullName, activities, description, phoneNumber, emailAddresses, addresses, images, parkCode
+                        SELECT id, fullName, activities, description,
+                        phoneNumber, emailAddresses, addresses, images,
+                        parkCode
                         FROM nationalparks;
                         """
 
                     )
-                    result = db.fetchall()
-                    return [
+                result = db.fetchall()
+                return [
                         NationalParkOut(
-                            id= record[0],
-                            fullName= record[1],
-                            activities= ast.literal_eval(record[2]),
-                            description= record[3],
-                            phoneNumber= record[4],
-                            emailAddresses= record[5],
-                            addresses= ast.literal_eval(record[6]),
-                            images= ast.literal_eval(record[7]),
-                            parkCode= record[8]
+                            id=record[0],
+                            fullName=record[1],
+                            activities=ast.literal_eval(record[2]),
+                            description=record[3],
+                            phoneNumber=record[4],
+                            emailAddresses=record[5],
+                            addresses=ast.literal_eval(record[6]),
+                            images=ast.literal_eval(record[7]),
+                            parkCode=record[8]
                         )
                         for record in result
                     ]

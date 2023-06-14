@@ -43,6 +43,7 @@ async def create_account(
     print(token)
     return AccountToken(account=account, **token.dict())
 
+
 @router.get("/token", response_model=AccountToken | None)
 async def get_token(
     request: Request,
