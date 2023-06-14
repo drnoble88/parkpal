@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useLogoutMutation } from "../store/apiSlice";
 import { useNavigate, NavLink } from "react-router-dom";
+import logoImage from "./images/51694-removebg-preview (4).png";
 import { useGetAccountQuery } from "../store/apiSlice";
 
 import "./Navstyle.css";
