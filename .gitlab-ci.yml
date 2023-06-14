@@ -35,6 +35,7 @@ build-front-end-job:
     # GROUP_NAME, PROJECT_NAME, & WEBSERVICE_NAME below.
     PUBLIC_URL: https://cortana.gitlab.io/parkpal/
     REACT_APP_API_HOST: https://parkpal-api.feb-b-11.mod3projects.com
+  script:
     - cd ghi
     - npm install
     - npm run build
