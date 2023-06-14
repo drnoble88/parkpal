@@ -11,7 +11,7 @@ lint-test-job:
     - pip install flake8
     - flake8 parkpal_service
 
-# # Run the unit tests
+# Run the unit tests
 api-unit-tests-job:
   image: python:3-bullseye
   stage: test
@@ -22,7 +22,7 @@ api-unit-tests-job:
     - pip install -r requirements.txt
     - python -m pytest
 
-# # Build the React/JavaScript front-end
+# Build the React/JavaScript front-end
 build-front-end-job:
   stage: build
   image: node:lts-bullseye
@@ -44,7 +44,7 @@ build-front-end-job:
     paths:
       - ghi/build/
 
-# # Deploy the React/JavaScript front-end to GitLab pages
+# Deploy the React/JavaScript front-end to GitLab pages
 pages:
   stage: deploy
   rules:
@@ -59,7 +59,7 @@ pages:
     paths:
       - public
 
-# # Build Sample Service:
+# Build Sample Service:
 build-api:
   image: docker:19.03.1
   stage: build
