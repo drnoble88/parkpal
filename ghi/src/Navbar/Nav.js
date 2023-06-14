@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useLogoutMutation } from "../store/apiSlice";
-import { useNavigate } from "react-router-dom";
-import logoImage from "./images/51694-removebg-preview (4).png";
-import { NavLink } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
 import { useGetAccountQuery } from "../store/apiSlice";
 
 import "./Navstyle.css";
@@ -26,9 +24,9 @@ function Navbar() {
   }, []);
 
   const handleLogout = async (e) => {
-    logout();
     e.preventDefault();
     setIsLoggedIn(false);
+    await logout();
     navigate("/login");
   };
 
@@ -48,11 +46,7 @@ function Navbar() {
             </li>
             {account && (
               <li className="nav-item">
-                <NavLink
-                  className="active"
-                  href="index.html"
-                  to="/createtrip"
-                >
+                <NavLink className="active" to="/createtrip">
                   Create Trip
                 </NavLink>
               </li>
@@ -86,11 +80,7 @@ function Navbar() {
               </button>
             )}
             {account && (
-              <button
-                className="nav-button"
-                role="button"
-                onClick={handleLogout}
-              >
+              <button className="nav-button" onClick={handleLogout}>
                 Logout
               </button>
             )}

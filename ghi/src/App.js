@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import Construct from "./Construct.js";
+import { useState } from "react";
 import ErrorNotification from "./ErrorNotification.js";
 import "./index.css";
 import Navbar from "./Navbar/Nav.js";
@@ -14,8 +13,7 @@ import UpdateTrip from "./editTrip.js";
 import SpecificTrip from "./SpecificTrip.js";
 
 function App() {
-  const [launchInfo, setLaunchInfo] = useState([]);
-  const [error, setError] = useState(null);
+  const [error] = useState(null);
 
   return (
     <>
