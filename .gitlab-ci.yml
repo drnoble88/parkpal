@@ -9,7 +9,7 @@ lint-test-job:
   stage: test
   script:
     - pip install flake8
-    - flake8 sample_service
+    - flake8 parkpal_service
 
 # # Run the unit tests
 api-unit-tests-job:
@@ -18,7 +18,7 @@ api-unit-tests-job:
   needs:
     - lint-test-job
   script:
-    - cd sample_service
+    - cd parkpal_service
     - pip install -r requirements.txt
     - python -m pytest
 
