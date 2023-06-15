@@ -14,7 +14,7 @@ const SignupForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const response = await signup({ username, fullname, email, password });
-    if (response.error) {
+    if (!response.error) {
       console.log("Signup successful!");
       setUsername("");
       setFullname("");
