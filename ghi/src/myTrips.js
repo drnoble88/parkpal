@@ -59,6 +59,7 @@ const TripList = () => {
                 <div className="card-body">
                   <img
                     src={parkImage(trip.national_park_name)}
+                    alt="Missing Park"
                     width="250"
                     height="150"
                     style={imageStyle}

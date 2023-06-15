@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useLogoutMutation } from "../store/apiSlice";
-import { useNavigate, NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import logoImage from "./images/51694-removebg-preview (4).png";
+import { NavLink } from "react-router-dom";
 import { useGetAccountQuery } from "../store/apiSlice";
 
 import "./Navstyle.css";
@@ -10,7 +11,7 @@ function Navbar() {
   const { data: account } = useGetAccountQuery();
   const [logout] = useLogoutMutation();
   const navigate = useNavigate();
-  const [setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isSticky, setIsSticky] = useState(false);
 
   useEffect(() => {
@@ -25,9 +26,9 @@ function Navbar() {
   }, []);
 
   const handleLogout = async (e) => {
+    logout();
     e.preventDefault();
     setIsLoggedIn(false);
-    await logout();
     navigate("/login");
   };
 
@@ -35,7 +36,7 @@ function Navbar() {
     <>
       <nav className={`navbar ${isSticky ? "sticky" : ""}`}>
         <div className="logo-container">
-          <a className="logo">
+          <a className="logo" href="/">
             <img src={logoImage} alt="Logo" className="logo-image" />
           </a>
           <h1 className="title">ParkPal</h1>
@@ -47,7 +48,11 @@ function Navbar() {
             </li>
             {account && (
               <li className="nav-item">
-                <NavLink className="active" to="/createtrip">
+                <NavLink
+                  className="active"
+                  href="index.html"
+                  to="/createtrip"
+                >
                   Create Trip
                 </NavLink>
               </li>
@@ -81,7 +86,11 @@ function Navbar() {
               </button>
             )}
             {account && (
-              <button className="nav-button" onClick={handleLogout}>
+              <button
+                className="nav-button"
+                role="button"
+                onClick={handleLogout}
+              >
                 Logout
               </button>
             )}

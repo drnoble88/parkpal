@@ -48,8 +48,8 @@ const ParkDetails = () => {
                 <Carousel.Item key={index} style={{height: "600px"}}>
                   <img
                     src={image}
+                    alt="Missing Park"
                     className="d-block mx-auto rounded"
-                    alt="Park Image"
                     style={imageStyle1}
 
                   />
