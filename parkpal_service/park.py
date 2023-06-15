@@ -7,7 +7,7 @@ def seeding_all_national_parks():
     res = requests.get('https://developer.nps.gov/api/v1/parks?limit=469&\
                         api_key=sddc5G1qLchZwcSUwLr1dA2NTiaXvMs5yrOS41jE')
     data = res.json()
-    real_data = data['data']
+    real_data = data[0]['data']
     new_data = []
     all_images = []
     list_activities = []
