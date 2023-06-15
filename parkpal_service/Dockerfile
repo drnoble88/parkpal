@@ -14,7 +14,7 @@ COPY queries queries
 COPY routers routers
 COPY authenticator.py authenticator.py
 COPY main.py main.py
-COPY requirements.py requirements.py
+COPY requirements.txt requirements.txt
 
 
 RUN python -m pip install -r requirements.txt
