@@ -14,7 +14,7 @@ function Navbar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isSticky, setIsSticky] = useState(false);
 
-  if (isLoggedIn == false){
+  if (isLoggedIn === false){
     
   }
 
@@ -92,7 +92,6 @@ function Navbar() {
             {account && (
               <button
                 className="nav-button"
-                role="button"
                 onClick={handleLogout}
               >
                 Logout
