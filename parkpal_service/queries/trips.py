@@ -20,7 +20,7 @@ class TripOut(TripIn):
     account_id: str
 
 
-class TripsRespository:
+class TripsRepository:
     def create(self, trip: TripIn, account_id: int) -> TripOut:
         with pool.connection() as conn:
             with conn.cursor() as db:
