@@ -27,6 +27,5 @@ RUN python -m pip install -r requirements.txt
 # If you're using a relational database and want migrations
 # to be run automatically, delete the previous CMD line and
 # uncomment the following COPY and CMD lines
-COPY migrations migrations
 # # !! PORT env var needs to match with exposed port in caprover dashboard
 CMD python -m migrations up && python park.py && uvicorn main:app --host 0.0.0.0 --port 80
