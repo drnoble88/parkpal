@@ -4,10 +4,13 @@ from queries.national_parks import NationalPark
 
 
 def seeding_all_national_parks():
-    res = requests.get('https://developer.nps.gov/api/v1/parks?limit=469&\
-                        api_key=sddc5G1qLchZwcSUwLr1dA2NTiaXvMs5yrOS41jE')
+    api_key = 'sddc5G1qLchZwcSUwLr1dA2NTiaXvMs5yrOS41jE'
+    res = requests.get(
+        f'https://developer.nps.gov/api/v1/parks?limit=469&api_key={api_key}'
+        )
     data = res.json()
-    real_data = data[0]['data']
+    print(data['data'][0]['contacts']['phoneNumbers'])
+    real_data = data['data']
     new_data = []
     all_images = []
     list_activities = []
@@ -19,8 +22,7 @@ def seeding_all_national_parks():
         for index in range(len(entry["activities"])):
             list_activities.append(entry["activities"][index]["name"])
         if len(entry["contacts"]["phoneNumbers"]) != 0:
-            phone_number = entry["contacts"]["phoneNumbers"]
-            [0]["phoneNumber"]
+            phone_number = entry["contacts"]["phoneNumbers"][0]["phoneNumber"]
         if len(entry["addresses"]) != 0:
             address = entry["addresses"][0]
         national_park = NationalPark(
