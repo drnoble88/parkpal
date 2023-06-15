@@ -14,6 +14,10 @@ function Navbar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isSticky, setIsSticky] = useState(false);
 
+  if (isLoggedIn == false){
+    
+  }
+
   useEffect(() => {
     const handleScroll = () => {
       setIsSticky(window.pageYOffset > 0);
