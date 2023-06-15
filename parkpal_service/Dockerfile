@@ -14,6 +14,7 @@ COPY queries queries
 COPY routers routers
 COPY authenticator.py authenticator.py
 COPY main.py main.py
+COPY park.py park.py
 COPY requirements.txt requirements.txt
 
 
