@@ -9,6 +9,7 @@ services:
 variables:
   DATABASE_URL: postgresql://postgres:b380b45f60bb6cf6@srv-captain--parkpal-db:5432
   SIGNING_KEY: 5a0b45beae27c418b84f10abb6d3c5e9fa85037378da75b87d61156ab1a59a20
+  CORS_HOST: https://parkpal1.gitlab.io/module3-project-gamma/
 
 # Run flake8 to check for code quality
 lint-test-job:
