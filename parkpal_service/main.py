@@ -1,9 +1,15 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import os
+<<<<<<< HEAD:sample_service/main.py
 import datetime
+=======
+from authenticator import authenticator
+from routers import accounts, trips, national_parks
+>>>>>>> main:parkpal_service/main.py
 
 app = FastAPI()
+
 
 app.add_middleware(
     CORSMiddleware,
@@ -13,6 +19,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+<<<<<<< HEAD:sample_service/main.py
 
 @app.get("/api/date-details")
 def date_details():
@@ -27,3 +34,9 @@ def date_details():
             "tz": str(now.astimezone().tzinfo),
         }
     }
+=======
+app.include_router(authenticator.router)
+app.include_router(accounts.router)
+app.include_router(trips.router)
+app.include_router(national_parks.router)
+>>>>>>> main:parkpal_service/main.py
