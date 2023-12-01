@@ -1,58 +1,57 @@
-volumes:
-  parkpal-data:
-    external: true
-  pg-admin:
-      external: true
 services:
-  fastapi:
+  app:
     build:
-      context: parkpal_service
-      dockerfile: Dockerfile.dev
-    environment:
-       SIGNING_KEY: 2cf693e3f0527777851fc1ba95f51251660e4dfc5669cd198b41b2cf3e054e1a
-       DATABASE_URL: postgresql://admin:1234@db/parkpal
-       WAIT_HOSTS: db:5432
-       PORT: 8000
+      context: app
+      target: development
     ports:
-       - "8000:8000"
+      - 3000:3000
+    stdin_open: true
     volumes:
-      - ./parkpal_service:/app
-  db:
-    image: postgres:15.3-bullseye
-    environment:
-      POSTGRES_PASSWORD: 1234
-      POSTGRES_USER: admin
-      POSTGRES_DB: parkpal
-    ports:
-      - "15432:5432"
-    volumes:
-      - parkpal-data:/var/lib/postgresql/data
-  ghi:
-    image: node:lts-bullseye
-    command: /bin/bash run.sh
-    working_dir: /app
-    volumes:
-      - ./ghi:/app
-    ports:
-      - "3000:3000"
-    environment:
-      HOST_OS: windows
-      NODE_ENV: development
-      HOST: "0.0.0.0"
-      PUBLIC_URL: http://localhost:3000
-      REACT_APP_API_HOST: http://localhost:8000
+      - ./app:/usr/src/app
+      - /usr/src/app/node_modules
+    restart: always
+    depends_on:
+      - server
 
-  pgadmin:
-    # For more details on configuring the pgadmin4 Docker image, see:
-    #   https://hub.docker.com/r/dpage/pgadmin4/
-    image: dpage/pgadmin4
-    volumes:
-      - pg-admin:/var/lib/pgadmin
-    # Expose the web UI on localhost port 8080
-    ports:
-      - '8082:80'
-    # Link this container to the postgres container with hostname 'postgres'
+  server:
+    restart: "always"
+    build:
+      context: server
+      target: builder
+    container_name: parkpal-server
     environment:
-      PGADMIN_DEFAULT_EMAIL: 'admin@example.com'
-      PGADMIN_DEFAULT_PASSWORD: '1234'
-      PGADMIN_DISABLE_POSTFIX: 1
+      PORT: 8000
+    ports:
+      - 8000:8000
+    depends_on:
+      - database
+
+  database:
+    restart: always
+    image: postgres:latest
+    container_name: parkpal-db
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PW}
+      - POSTGRES_DB=${POSTGRES_DB} #optional (specify default database instead of $POSTGRES_DB)
+    ports:
+      - 5432:5432
+
+  # pgadmin:
+  #   container_name: pgadmin
+  #   image: dpage/pgadmin4:latest
+  #   environment:
+  #     - PGADMIN_DEFAULT_EMAIL=${PGADMIN_MAIL}
+  #     - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_PW}
+  #   ports:
+  #     - "5050:80"
+  #   restart: always
+networks:
+  public:
+  private:
+volumes:
+  back-notused:
+  db-data:
+secrets:
+  db-password:
+    file: database/password.txt
