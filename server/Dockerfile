@@ -1,31 +1,26 @@
-FROM python:3.10-bullseye
-RUN python -m pip install --upgrade pip
+# syntax = docker/dockerfile:1.4
+
+FROM tiangolo/uvicorn-gunicorn-fastapi:python3.9-slim AS builder
+
 WORKDIR /app
 
-# Copy the top-level files in your service's directory
-# Modify these instructions to do that
-COPY requirements.txt requirements.txt
-COPY main.py main.py
+COPY requirements.txt ./
+RUN --mount=type=cache,target=/root/.cache/pip \
+    pip install -r requirements.txt
 
-# Copy all of the subdirectories in your service's directory
-# Modify these instructions to do that
-COPY migrations migrations
-COPY queries queries
-COPY routers routers
-COPY authenticator.py authenticator.py
-COPY main.py main.py
-COPY park.py park.py
-COPY requirements.txt requirements.txt
+COPY ./app ./app
 
+FROM builder as dev-envs
 
-RUN python -m pip install -r requirements.txt
+RUN <<EOF
+apt-get update
+apt-get install -y --no-install-recommends git
+EOF
 
-# !! PORT env var needs to match with exposed port in caprover dashboard
-# CMD uvicorn main:app --host 0.0.0.0 --port 80
-
-
-# If you're using a relational database and want migrations
-# to be run automatically, delete the previous CMD line and
-# uncomment the following COPY and CMD lines
-# # !! PORT env var needs to match with exposed port in caprover dashboard
-CMD python -m migrations up && python park.py && uvicorn main:app --host 0.0.0.0 --port 80
+RUN <<EOF
+useradd -s /bin/bash -m vscode
+groupadd docker
+usermod -aG docker vscode
+EOF
+# install Docker tools (cli, buildx, compose)
+COPY --from=gloursdocker/docker / /
