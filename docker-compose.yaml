@@ -1,50 +1,51 @@
 services:
   app:
     build:
-      context: frontend
+      context: app
       target: development
     ports:
       - 3000:3000
+    stdin_open: true
     volumes:
-      - ./app/src:/code/src
-      - /code/node_modules
-    networks:
-      - public
+      - ./app:/usr/src/app
+      - /usr/src/app/node_modules
+    restart: always
     depends_on:
-      - backend
+      - server
 
   server:
+    restart: "always"
     build:
-      context: .
+      context: server
       target: builder
-    container_name: fastapi-application
+    container_name: parkpal-server
     environment:
       PORT: 8000
     ports:
-      - '8000:8000'
-    restart: "no"
+      - 8000:8000
     depends_on:
-        - db
-  postgres:
-    container_name: postgres
+      - database
+
+  database:
+    restart: always
     image: postgres:latest
+    container_name: parkpal-db
     environment:
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PW}
       - POSTGRES_DB=${POSTGRES_DB} #optional (specify default database instead of $POSTGRES_DB)
     ports:
-      - "5432:5432"
-    restart: always
+      - 5432:5432
 
-  pgadmin:
-    container_name: pgadmin
-    image: dpage/pgadmin4:latest
-    environment:
-      - PGADMIN_DEFAULT_EMAIL=${PGADMIN_MAIL}
-      - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_PW}
-    ports:
-      - "5050:80"
-    restart: always
+  # pgadmin:
+  #   container_name: pgadmin
+  #   image: dpage/pgadmin4:latest
+  #   environment:
+  #     - PGADMIN_DEFAULT_EMAIL=${PGADMIN_MAIL}
+  #     - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_PW}
+  #   ports:
+  #     - "5050:80"
+  #   restart: always
 networks:
   public:
   private:
@@ -53,4 +54,4 @@ volumes:
   db-data:
 secrets:
   db-password:
-    file: db/password.txt
+    file: database/password.txt
